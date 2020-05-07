@@ -29,3 +29,9 @@ Além da qualidade e organização do seu código, vamos avaliar também a facil
   menu para o usuário escolher a consulta a ser realizada ou sair da plicação.
   
   2. Como um CLI, similar a comandos como `git` e `rails` que você executa em seu terminal. Nesse formato você deve ter uma opção `--help` que traz todas as opções possíveis para execução (todas as consultas e como o usuário deve passar os parâmetros necessários em cada consulta)
+
+  # instale as GEM 
+    `gem install rest-client`
+    `gem install rspec`
+  # inicialize o rspec 
+    `rspec --init`
