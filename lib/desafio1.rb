@@ -5,8 +5,6 @@ require 'json'
 api_base_url_nome = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/"
 api_base_url_ranking = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking/"
 
-
-###Menu
 system("clear")
 puts "+------------------------------------+" 
 puts "|        Escolha uma das opções:     |" 
@@ -20,12 +18,8 @@ puts "+------------------------------------+"
 # taking input from user 
 print "Entre com sua escolha: " 
 escolha = gets.chomp 
-  
- 
-# using case statement 
-case escolha 
-  
-# using when 
+
+case escolha
 when "1"  
   puts "\n \nDigite o primeiro nome para pesquisar: " 
   nome = gets.chomp
@@ -75,7 +69,10 @@ when "3"
   puts "\nNomes por sexo: \n " 
   print sexo
   puts
-else  
-  puts "Default!"
 
+else  
+  puts "\t \n Escolha uma das opções..."
+  puts
+  sleep 1.9
+  system("ruby desafio1.rb")
 end  
