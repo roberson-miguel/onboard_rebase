@@ -50,9 +50,13 @@ rest_ranking_json = JSON.parse(rest_ranking, :symbolize_names => true)
 
 puts "Todos Nomes: \n \n #{rest_ranking_json.to_s} \n \n "
 puts 
-puts "Apenas um nome: \n \n #{rest_ranking_json[0].to_s}\n \n"
+#puts "Apenas um nome: \n \n #{rest_ranking_json[0].to_s}\n \n"
 
 puts "As Chaves: #{rest_ranking_json[0].keys}\n \n "
 puts "Localidade: #{rest_ranking_json[0][:localidade]} \n \n "
 puts "Sexo: #{rest_ranking_json[0][:sexo]} \n \n "
-puts "Res: #{rest_ranking_json[0][:res][0][:nome]} \n \n "
+tam_ranking = rest_nome_json.size
+
+puts "Nome: #{rest_ranking_json[0][:res][0][:nome]} \n"
+puts "Nome 1: #{rest_ranking_json[0][:res][1][:nome]} \n"
+puts "Nome 2: #{rest_ranking_json[0][:res][2][:nome]} \n"
