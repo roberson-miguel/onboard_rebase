@@ -6,35 +6,45 @@ api_base_url_nome = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/"
 api_base_url_ranking = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking/"
 
 system("clear")
+puts
 puts "+------------------------------------+" 
-puts "|        Escolha uma das opções:     |" 
+puts "|      Escolha uma das opções:       |" 
 puts "|                                    |" 
 puts "| 1- Pesquisar por Primeiro nome     |" 
 puts "| 2- Digitar uma década ex. 1950     |" 
 puts "| 3- Pesquisar por sexo: M ou F      |" 
 puts "|                                    |" 
+puts "| 0- Sair                            |" 
+puts "|                                    |" 
 puts "+------------------------------------+"  
-  
-# taking input from user 
-print "Entre com sua escolha: " 
+puts  
+print "  >>>>  Entre com sua escolha: " 
 escolha = gets.chomp 
 
 case escolha
+when "0"
+  puts 
+  puts "+------------------------------------+" 
+  puts "|                                    |" 
+  puts "|            Obrigado...             |"
+  puts "|                                    |" 
+  puts "+------------------------------------+" 
+  puts
 when "1"  
   puts "\n \nDigite o primeiro nome para pesquisar: " 
   nome = gets.chomp
-  puts "\n \nPrimeiro nome a ser pesquisado: #{nome} \n \n"
   groupBy = "UF"
   url_nomes = "#{api_base_url_nome}#{nome}?groupBy=#{groupBy}"
   resource_nome = RestClient::Resource.new(url_nomes)
   rest_nome = resource_nome.get
   rest_nome_json = JSON.parse(rest_nome, :symbolize_names => true)
   puts "Apenas uma localidade: \n \n #{rest_nome_json[0].to_s}\n"
+  puts "Todas localidade: \n \n #{rest_nome_json.to_s}\n"
+  puts
   
 when "2" 
   puts "\n \nDigite uma década para pesquisar: " 
   decada = gets.chomp
-  puts "\n \nDécada a ser pesquisada: #{decada} \n \n"
   url_ranking = "#{api_base_url_ranking}?decada=#{decada}"
   resource_ranking = RestClient::Resource.new(url_ranking)
   rest_ranking = resource_ranking.get
@@ -49,12 +59,12 @@ when "2"
   end
 puts "\nNomes por década: \n " 
 print ranking 
+puts
   
 when "3"  
   print "\n \n Digite um sexo para pesquisar" 
   puts  "\n \n'M' para Masculino 'F' para FEMININO:" 
   sexo = gets.chomp
-  puts "\n \n Sexo pesquisado: #{sexo} \n \n"
   url_ranking = "#{api_base_url_ranking}?sexo=#{sexo}"
   resource_sexo = RestClient::Resource.new(url_ranking)
   rest_sexo = resource_sexo.get
