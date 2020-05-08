@@ -18,8 +18,11 @@ url = "#{api_base_url_nome}#{nome}?groupBy=#{groupBy}"
 
 rest_resource = RestClient::Resource.new(url)
 
-resultado = rest_resource.get
+rest_get = rest_resource.get
 
-puts JSON.parse(resultado, :symbolize_names => true)
-puts resultado.code
+rest_json = JSON.parse(rest_get, :symbolize_names => true)
+
+puts "Todas localidades: \n #{rest_json.to_s}"
+puts
+puts "Apenas uma localidade: #{rest_json[0].to_s}"
 
