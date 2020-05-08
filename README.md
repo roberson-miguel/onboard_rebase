@@ -25,13 +25,22 @@ Ao ser executada essa aplicação deve oferecer ao seu usuário as seguintes op�
 
 Além da qualidade e organização do seu código, vamos avaliar também a facilidade de uso das interfaces e a qualidade da exibição dos resultados de cada consulta. Então dedique algum tempo para formatar minimamente as tabelas solicitadas. A sua aplicação pode ser executada de duas formas:
 
-  1. Como uma aplicação que fica em execução de forma constante e conta com um
-  menu para o usuário escolher a consulta a ser realizada ou sair da plicação.
-  
-  2. Como um CLI, similar a comandos como `git` e `rails` que você executa em seu terminal. Nesse formato você deve ter uma opção `--help` que traz todas as opções possíveis para execução (todas as consultas e como o usuário deve passar os parâmetros necessários em cada consulta)
+1. Como uma aplicação que fica em execução de forma constante e conta com um
+menu para o usuário escolher a consulta a ser realizada ou sair da plicação.
+
+2. Como um CLI, similar a comandos como `git` e `rails` que você executa em seu terminal. Nesse formato você deve ter uma opção `--help` que traz todas as opções possíveis para execução (todas as consultas e como o usuário deve passar os parâmetros necessários em cada consulta)
 
   # instale as GEM 
     `gem install rest-client`
     `gem install rspec`
   # inicialize o rspec 
     `rspec --init`
+
+### Excutando o projeto
+
+  1. Oriento que use o RVM para instalar o Ruby 2.6.3, se voce usa ubuntu pode seguir esse manual https://www.edivaldobrito.com.br/como-instalar-o-ruby-version-manager-no-ubuntu/    
+  2. Clone o projeto na sua maquina 
+  3. Dentro da pasta do projeto rode o comando `bin/setup`
+  4. Talvez precisa rodar `bundle install` 
+  5. Acesse a pasta \lib
+  5. Execute o comando `ruby desafio1.rb`

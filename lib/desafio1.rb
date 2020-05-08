@@ -1,6 +1,7 @@
 require 'rest-client'
 require 'json'
 
+
 api_base_url_nome = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/"
 
 print "\nNo Brasil, de acordo com o Censo Demográfico 2010,\n
