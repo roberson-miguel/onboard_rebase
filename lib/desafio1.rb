@@ -41,6 +41,11 @@ when "1"
   resource_nome = RestClient::Resource.new(url_nomes)
   rest_nome = resource_nome.get
   rest_nome_json = JSON.parse(rest_nome, :symbolize_names => true)
+  
+  
+  
+  
+  
   tam_nome_res = rest_nome_json.size
   puts tam_nome_res
   lista_nome = []
@@ -55,22 +60,16 @@ when "1"
   puts
   
 when "2" 
-  puts "\n \nDigite uma década para pesquisar: " 
+  print "\n \nDigite uma década para pesquisar: " 
   decada = gets.chomp
   url_ranking = "#{api_base_url_ranking}?decada=#{decada}"
   resource_ranking = RestClient::Resource.new(url_ranking)
   rest_ranking = resource_ranking.get
   rest_ranking_json = JSON.parse(rest_ranking, :symbolize_names => true)
-  tam_ranking_res = rest_ranking_json[0][:res].size
-  ranking = []
-  start_ranking = 0
-  while tam_ranking_res > start_ranking
-    ranking << rest_ranking_json[0][:res][start_ranking][:nome]
-    start_ranking += 1
+  puts "Ranking de Nomes por Década"
+  rest_ranking_json[0][:res].each do |ranking|
+    puts "#{ranking[:ranking]}. #{ranking[:nome]} - Frequência: #{ranking[:frequencia]}"
   end
-puts "\nNomes por década: \n " 
-print ranking 
-puts
   
 when "3"  
   print "\n \n Digite um sexo para pesquisar" 
