@@ -139,7 +139,8 @@ when "5"
 
   resource_nome_localidade = RestClient::Resource.new(url_nome_localidade)
   rest_nome_localidade = resource_nome_localidade.get
-  rest_nome__localidade_json = JSON.parse(rest_nome_localidade, :symbolize_names => true)
+  rest_nome_localidade_json = JSON.parse(rest_nome_localidade, :symbolize_names => true)
+
   tam_nome_localidade = rest_nome_localidade_json[0][:res].size
   nome_localidade = []
   start_nome_localidade = 0
@@ -159,28 +160,14 @@ when "5"
   end
 
 when "6"
-  puts "\n \n \t \t Consultando siglas das localidades " 
   resource_localidade = RestClient::Resource.new(api_base_url_localidade)
   rest_localidade = resource_localidade.get
   rest_localidade_json = JSON.parse(rest_localidade, :symbolize_names => true)
-  tam_rest_localidade = rest_localidade_json.size
-  localidade = []
-  start_localidade = 0
-  while tam_rest_localidade > start_localidade
-    localidade << rest_localidade_json[start_localidade][:sigla]
-    localidade << rest_localidade_json[start_localidade][:nome]
-               
-    start_localidade += 1
+  
+  puts "\n \n \t \t Consultando siglas das localidades"
+  rest_localidade_json.each do |uf|
+  puts "\t \t #{uf[:nome]} " + '-' + " #{uf[:sigla]}"
   end
-  localidade.to_s
-  print localidade
-
-  index = 0
-  while localidade.size > index
-    puts localidade[index]
-    index += 1
-  end
-
 
 else  
   puts "\t \n Escolha uma das opções..."
