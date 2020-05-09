@@ -4,7 +4,7 @@ require 'json'
 
 api_base_url_nome = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/"
 api_base_url_ranking = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking/"
-api_base_url_localidade = "https://servicodados.ibge.gov.br/api/v1/localidades/estados/"
+api_base_url_localidade = "https://servicodados.ibge.gov.br/api/v1/localidades/estados"
 
 system("clear")
 puts
@@ -123,24 +123,47 @@ when "4"
   puts
 
 when "5"
-
-
   puts "\n \nDigite o primeiro nome em um estado: " 
   nome = gets.chomp 
   puts  "\n \nDigite um Estado para esquisar. Ex.: '33' para Rio de Janeiro:" 
   localidade = gets.chomp
 
-  url_localidade = "#{api_base_url_nome}#{nome}?localidade=#{localidade}"
+  url_nome_localidade = "#{api_base_url_nome}#{nome}?localidade=#{localidade}"
 
-  resource_localidade = RestClient::Resource.new(url_localidade)
+  resource_nome_localidade = RestClient::Resource.new(url_nome_localidade)
+  rest_nome_localidade = resource_nome_localidade.get
+  rest_nome__localidade_json = JSON.parse(rest_nome_localidade, :symbolize_names => true)
+  tam_nome_localidade = rest_nome_localidade_json[0][:res].size
+  nome_localidade = []
+  start_nome_localidade = 0
+  while tam_nome_localidade > start_nome_localidade
+    nome_localidade << rest_nome_localidade_json[0][:res][start_nome_localidade][:periodo]
+    nome_localidade << rest_nome_localidade_json[0][:res][start_nome_localidade][:frequencia]
+               
+    start_nome_localidade += 1
+  end
+  nome_localidade.to_s
+  print nome_localidade
+
+  index = 0
+  while nome_localidade.size > index
+    puts nome_localidade[index]
+    index += 1
+  end
+
+when "6"
+  puts "\n \n \t \t Consultando siglas das localidades " 
+
+
+  resource_localidade = RestClient::Resource.new(api_base_url_localidade)
   rest_localidade = resource_localidade.get
   rest_localidade_json = JSON.parse(rest_localidade, :symbolize_names => true)
-  tam_rest_localidade = rest_localidade_json[0][:res].size
+  tam_rest_localidade = rest_localidade_json.size
   localidade = []
   start_localidade = 0
   while tam_rest_localidade > start_localidade
-    localidade << rest_localidade_json[0][:res][start_localidade][:periodo]
-    localidade << rest_localidade_json[0][:res][start_localidade][:frequencia]
+    localidade << rest_localidade_json[start_localidade][:sigla]
+    localidade << rest_localidade_json[start_localidade][:nome]
                
     start_localidade += 1
   end
@@ -152,7 +175,6 @@ when "5"
     puts localidade[index]
     index += 1
   end
-
 
 
 else  
