@@ -10,7 +10,7 @@ puts
 puts "+------------------------------------+" 
 puts "|      Escolha uma das opções:       |" 
 puts "|                                    |" 
-puts "| 1- Pesquisar por Primeiro nome     |" 
+puts "| 1- Pesquisar Nome no ranking geral |" 
 puts "| 2- Digitar uma década ex. 1950     |" 
 puts "| 3- Pesquisar por sexo: M ou F      |" 
 puts "| 4- Nome por Sexo nas décadas       |" 
@@ -29,7 +29,7 @@ when "0"
   puts 
   puts "+------------------------------------+" 
   puts "|                                    |" 
-  puts "|            Obrigado...             |"
+  puts "|     Saindo...Obrigado...           |"
   puts "|                                    |" 
   puts "+------------------------------------+" 
   puts
@@ -41,24 +41,11 @@ when "1"
   resource_nome = RestClient::Resource.new(url_nomes)
   rest_nome = resource_nome.get
   rest_nome_json = JSON.parse(rest_nome, :symbolize_names => true)
-  
-  
-  
-  
-  
-  tam_nome_res = rest_nome_json.size
-  puts tam_nome_res
-  lista_nome = []
-  start_nome = 0
-  while tam_nome_res > start_nome
-    lista_nome << rest_nome_json[start_nome][:localidade]
-    lista_nome << rest_nome_json[start_nome][:res]
-    start_nome += 1
-  end
-  puts "\nTodas localidade: \n " 
-  puts lista_nome
-  puts
-  
+  puts "Ranking para o nome: #{nome} em Localidades, Frequencia, População e Proporção"
+  rest_nome_json.each do |ranking|
+    puts "Localidade: #{ranking[:localidade]} - Frequêcia: #{ranking[:res][0][:frequencia]} - População: #{ranking[:res][0][:populacao]} - Proporção: #{ranking[:res][0][:proporcao]}"
+  end 
+    
 when "2" 
   print "\n \nDigite uma década para pesquisar: " 
   decada = gets.chomp
