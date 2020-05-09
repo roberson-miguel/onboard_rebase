@@ -106,28 +106,11 @@ when "4"
   tam_periodo_res = rest_periodo_decada_json[0][:res].size
   periodo = []
   start_periodo = 0
-  while tam_periodo_res > start_periodo
-    periodo << rest_periodo_decada_json[0][:res][start_periodo][:periodo]
-    periodo << rest_periodo_decada_json[0][:res][start_periodo][:frequencia]
-               
-    start_periodo += 1
+  puts "Consultando Nome por Sexo nos Periodos"
+  rest_periodo_decada_json[0][:res].each do |decada|
+    puts "Periodo: #{decada[:periodo]} - Frequência: #{decada[:frequencia]}"
   end
-  periodo.to_s
-  print periodo
 
-  index = 0
-  while periodo.size > index
-    puts periodo[index]
-    #puts periodo[index + 1]
-    index += 1
-  end
-  
-
-  resource_nome = RestClient::Resource.new(url_nomes)
-  rest_nome = resource_nome.get
-  rest_nome_json = JSON.parse(rest_nome, :symbolize_names => true)
-  puts "\n Apenas uma Nome todos dados do JSON: \n \n #{rest_nome_json[0].to_s}\n"
-  puts
 
 when "5"
   puts "\n \nDigite o primeiro nome em um estado: " 
@@ -138,9 +121,9 @@ when "5"
   resource_nome_localidade = RestClient::Resource.new(url_nome_localidade)
   rest_nome_localidade = resource_nome_localidade.get
   rest_nome_localidade_json = JSON.parse(rest_nome_localidade, :symbolize_names => true)
-  puts "Consultando Nome por Localidade nos periodos"
+  puts "Consultando Nome por Localidade nos Periodos"
   rest_nome_localidade_json[0][:res].each do |nome|
-    puts "Periodo: #{nome[:localidade]}. #{nome[:periodo]} - Frequência: #{nome[:frequencia]}"
+    puts "Periodo: #{nome[:periodo]} - Frequência: #{nome[:frequencia]}"
   end
 
 when "6"
