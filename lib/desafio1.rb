@@ -6,23 +6,25 @@ api_base_url_ranking = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/ran
 api_base_url_localidade = "https://servicodados.ibge.gov.br/api/v1/localidades/estados"
 
 system("clear")
+puts 
+print "\t Escolha uma das opções: \n " 
+puts 
 puts
-puts "+------------------------------------+" 
-puts "|      Escolha uma das opções:       |" 
-puts "|                                    |" 
-puts "| 1- Pesquisar Nome no ranking geral |" 
-puts "| 2- Digitar uma década ex. 1950     |" 
-puts "| 3- Pesquisar por sexo: M ou F      |" 
-puts "| 4- Nome por Sexo nas décadas       |" 
-puts "| 5- Nome por Estados                |" 
-puts "| 6- Consultar UF dos estados        |" 
-puts "|                                    |" 
-puts "| 0- Sair                            |" 
-puts "|                                    |" 
-puts "+------------------------------------+"  
-puts  
-print "  >>>>  Entre com sua escolha: " 
+puts
+puts "\t \t 1- Pesquisar Nome no ranking geral \n " 
+puts "\t \t 2- Digitar uma década ex. 1950 \n " 
+puts "\t \t 3- Pesquisar por sexo: M ou F \n " 
+puts "\t \t 4- Nome por Sexo nas décadas \n " 
+puts "\t \t 5- Nome por Estados \n " 
+puts "\t \t 6- Consultar UF dos estados \n " 
+puts 
+puts "\t \t 0- SAIR" 
+puts 
+puts
+print "\t Digite sua escolha: " 
 escolha = gets.chomp 
+
+
 
 case escolha
 when "0"
