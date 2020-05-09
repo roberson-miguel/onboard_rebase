@@ -1,7 +1,6 @@
 require 'rest-client'
 require 'json'
 
-
 api_base_url_nome = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/"
 api_base_url_ranking = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking/"
 api_base_url_localidade = "https://servicodados.ibge.gov.br/api/v1/localidades/estados"
@@ -42,8 +41,17 @@ when "1"
   resource_nome = RestClient::Resource.new(url_nomes)
   rest_nome = resource_nome.get
   rest_nome_json = JSON.parse(rest_nome, :symbolize_names => true)
-  puts "Apenas uma localidade: \n \n #{rest_nome_json[0].to_s}\n"
-  puts "Todas localidade: \n \n #{rest_nome_json.to_s}\n"
+  tam_nome_res = rest_nome_json.size
+  puts tam_nome_res
+  lista_nome = []
+  start_nome = 0
+  while tam_nome_res > start_nome
+    lista_nome << rest_nome_json[start_nome][:localidade]
+    lista_nome << rest_nome_json[start_nome][:res]
+    start_nome += 1
+  end
+  puts "\nTodas localidade: \n " 
+  puts lista_nome
   puts
   
 when "2" 
@@ -53,7 +61,6 @@ when "2"
   resource_ranking = RestClient::Resource.new(url_ranking)
   rest_ranking = resource_ranking.get
   rest_ranking_json = JSON.parse(rest_ranking, :symbolize_names => true)
-  #puts "Todos Nomes: \n #{rest_ranking_json.to_s} \n \n "
   tam_ranking_res = rest_ranking_json[0][:res].size
   ranking = []
   start_ranking = 0
@@ -153,8 +160,6 @@ when "5"
 
 when "6"
   puts "\n \n \t \t Consultando siglas das localidades " 
-
-
   resource_localidade = RestClient::Resource.new(api_base_url_localidade)
   rest_localidade = resource_localidade.get
   rest_localidade_json = JSON.parse(rest_localidade, :symbolize_names => true)
