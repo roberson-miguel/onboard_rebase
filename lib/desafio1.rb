@@ -80,32 +80,21 @@ when "3"
   resource_sexo = RestClient::Resource.new(url_ranking)
   rest_sexo = resource_sexo.get
   rest_sexo_json = JSON.parse(rest_sexo, :symbolize_names => true)
-  tam_sexo_res = rest_sexo_json[0][:res].size
-  sexo = []
-  start_sexo = 0
-  while tam_sexo_res > start_sexo
-    sexo << rest_sexo_json[0][:res][start_sexo][:nome]
-    start_sexo += 1
+  puts "Ranking de Nome por Sexo todos Periodos"
+  rest_sexo_json[0][:res].each do |sexo|
+    puts "Periodo: #{sexo[:nome]} - Frequência: #{sexo[:frequencia]}"
   end
-  puts "\nNomes por sexo: \n " 
-  print sexo
-  puts
 
 when "4"
   puts "\n \nDigite o primeiro nome para pesquisar: " 
   nome = gets.chomp 
   puts  "\n \nDigite'M' para Masculino 'F' para FEMININO:" 
   sexo = gets.chomp
-  #url_ranking = "#{api_base_url_ranking}?sexo=#{sexo}"
-
   url_nomes = "#{api_base_url_nome}#{nome}?sexo=#{sexo}"
-
   resource_periodo = RestClient::Resource.new(url_nomes)
   rest_periodo_decada = resource_periodo.get
   rest_periodo_decada_json = JSON.parse(rest_periodo_decada, :symbolize_names => true)
   tam_periodo_res = rest_periodo_decada_json[0][:res].size
-  periodo = []
-  start_periodo = 0
   puts "Consultando Nome por Sexo nos Periodos"
   rest_periodo_decada_json[0][:res].each do |decada|
     puts "Periodo: #{decada[:periodo]} - Frequência: #{decada[:frequencia]}"
