@@ -134,29 +134,13 @@ when "5"
   nome = gets.chomp 
   puts  "\n \nDigite um Estado para esquisar. Ex.: '33' para Rio de Janeiro:" 
   localidade = gets.chomp
-
   url_nome_localidade = "#{api_base_url_nome}#{nome}?localidade=#{localidade}"
-
   resource_nome_localidade = RestClient::Resource.new(url_nome_localidade)
   rest_nome_localidade = resource_nome_localidade.get
   rest_nome_localidade_json = JSON.parse(rest_nome_localidade, :symbolize_names => true)
-
-  tam_nome_localidade = rest_nome_localidade_json[0][:res].size
-  nome_localidade = []
-  start_nome_localidade = 0
-  while tam_nome_localidade > start_nome_localidade
-    nome_localidade << rest_nome_localidade_json[0][:res][start_nome_localidade][:periodo]
-    nome_localidade << rest_nome_localidade_json[0][:res][start_nome_localidade][:frequencia]
-               
-    start_nome_localidade += 1
-  end
-  nome_localidade.to_s
-  print nome_localidade
-
-  index = 0
-  while nome_localidade.size > index
-    puts nome_localidade[index]
-    index += 1
+  puts "Consultando Nome por Localidade nos periodos"
+  rest_nome_localidade_json[0][:res].each do |nome|
+    puts "Periodo: #{nome[:localidade]}. #{nome[:periodo]} - Frequência: #{nome[:frequencia]}"
   end
 
 when "6"
