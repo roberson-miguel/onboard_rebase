@@ -8,15 +8,15 @@ require 'json'
     puts 
     puts
     puts
-    puts "\t \t 1- Pesquisar Nome no ranking geral \n " 
-    puts "\t \t 2- Digitar uma década ex. 1950 \n " 
-    puts "\t \t 3- Pesquisar por sexo: M ou F \n " 
-    puts "\t \t 4- Nome por Sexo nas décadas \n " 
-    puts "\t \t 5- Nome por Estados \n " 
-    puts "\t \t 6- Consultar UF dos estados \n " 
-    puts "\t \t 7- Ranking de nomes Masculinos e Femininos \n " 
-    puts "\t \t 8- Ranking de nomes Masculinos \n " 
-    puts "\t \t 9- Ranking de nomes Femininos \n " 
+    puts "\t \t 1- Pesquisar Nome no ranking geral" 
+    puts "\t \t 2- Pesquisar Nomes por década ex. 1950" 
+    puts "\t \t 3- Pesquisar por Sexo ex. M ou F" 
+    puts "\t \t 4- Pesquisar Nome por Sexo nas décadas" 
+    puts "\t \t 5- Pesquisar Nome por Estado" 
+    puts "\t \t 6- Consultar UF dos estados" 
+    puts "\t \t 7- Ranking de nomes Masculinos e Femininos" 
+    puts "\t \t 8- Ranking de nomes Masculinos" 
+    puts "\t \t 9- Ranking de nomes Femininos \n" 
     puts 
     puts "\t \t 0- SAIR" 
     puts 
@@ -50,7 +50,7 @@ require 'json'
         puts "\t \t Escolha uma das opções..."
         puts
         sleep 1.9
-        return manu
+        return menu
       end
     end
   end
@@ -67,7 +67,7 @@ require 'json'
   end
 
   def nome  
-    print "\n \t Digite o primeiro nome para pesquisar: " 
+    print "\n \t Digite o nome para pesquisar: " 
     nome = $stdin.gets.chomp
     puts
     groupBy = "UF"
@@ -98,7 +98,7 @@ require 'json'
   end
   
   def sexo
-    puts "\n \t Digite um sexo para pesquisar" 
+    puts "\n \t Escolha um Sexo para pesquisar" 
     print  "\n \t 'M' para Masculino ou 'F' para FEMININO: " 
     sexo = gets.chomp
     puts
@@ -112,8 +112,6 @@ require 'json'
       puts "\t #{sexo[:ranking]}. Nome: #{sexo[:nome]} - Frequência: #{sexo[:frequencia]}"
     end
   end
-
-  "https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking/?sexo=''"
 
   def todos_sexo
     puts "\n \t Exibindo Ranking de nomes Masculinos e Femininos " 
@@ -152,9 +150,9 @@ require 'json'
   end
 
   def nome_sexo
-    print "\n \tDigite o primeiro nome para pesquisar: " 
+    print "\n \tDigite o Nome para pesquisar: " 
     nome = gets.chomp 
-    print  "\n \tDigite'M' para Masculino 'F' para FEMININO: " 
+    print  "\n \tEscolha o sexo para o nome: #{nome}, ex. 'M' para Masculino 'F' para FEMININO: " 
     sexo = gets.chomp
     puts
     url_nomes = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{nome}?sexo=#{sexo}"
@@ -177,15 +175,15 @@ require 'json'
     rest_localidade = resource_localidade.get
     rest_localidade_json = JSON.parse(rest_localidade, :symbolize_names => true)
     
-    puts "\n \t \t Siglas das localidades"
+    puts "\n \t \t Siglas dos Estados"
     puts
     rest_localidade_json.each do |localidade|
     puts "\t \t #{localidade[:id]} - #{localidade[:sigla]} - #{localidade[:nome]} "
     end
-    print "\n \t Digite um nome para pesquisa: " 
+    print "\n \t Digite um nome para pesquisar: " 
     nome = gets.chomp 
     puts "\n \t Digite o numero referente ao Estado "
-    print "\t Exemplo, digite '33' para Rio de Janeiro: " 
+    print "\t Exemplo, digite '33' para pesquisar por #{nome} no Estado do Rio de Janeiro: " 
     localidade = gets.chomp
     puts
     url_nome_localidade = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{nome}?localidade=#{localidade}"
