@@ -102,9 +102,20 @@ when "4"
 
 
 when "5"
-  print "\n \t Digite o primeiro nome em um estado: " 
+  system("clear")
+  resource_localidade = RestClient::Resource.new(api_base_url_localidade)
+  rest_localidade = resource_localidade.get
+  rest_localidade_json = JSON.parse(rest_localidade, :symbolize_names => true)
+  
+  puts "\n \t \t Siglas das localidades"
+  puts
+  rest_localidade_json.each do |localidade|
+  puts "\t \t #{localidade[:id]} - #{localidade[:sigla]} - #{localidade[:nome]} "
+  end
+  print "\n \t Digite um nome para pesquisa: " 
   nome = gets.chomp 
-  print "\n \t Digite um Estado para esquisar. Ex.: '33' para Rio de Janeiro: " 
+  puts "\n \t Digite o numero referente ao Estado "
+  print "\t Exemplo, digite '33' para Rio de Janeiro: " 
   localidade = gets.chomp
   puts
   url_nome_localidade = "#{api_base_url_nome}#{nome}?localidade=#{localidade}"
