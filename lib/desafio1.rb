@@ -8,7 +8,7 @@ require 'json'
     puts "\t Esse programa traz um ranking iterativo dos nomes a partir dos dados mais recentes do CENSO,
          o IBGE lançou essa aplicação Web que fez muito sucesso em 2016. Você pode consultar os nomes mais 
          populares que pode ser organizado em décadas e/ou estados do país.
-          
+
          Além disso você pode buscar pelo seu nome e entender quão frequente é esse nome em um estado ou
          uma cidade do país. Algumas informações podem ser separadas ainda pela década ou pelo
          sexo atribuído ao nome.\n"
@@ -93,6 +93,7 @@ require 'json'
     rest_nome_json.each do |ranking|
       puts "\t #{ranking[:localidade]}\t\t#{ranking[:res][0][:frequencia]}"
     end 
+    puts
   end
     
   def todas_decadas 
@@ -120,6 +121,7 @@ require 'json'
     rest_ranking_json[0][:res].each do |ranking|
       puts "\t #{ranking[:ranking]}.#{ranking[:nome]}\t Frequência: #{ranking[:frequencia]}"
     end
+    puts
   end
   
   def sexo
@@ -154,6 +156,7 @@ require 'json'
     rest_periodo_decada_json[0][:res].each do |decada|
       puts "\t Periodo: #{decada[:periodo]} - \t Frequência: #{decada[:frequencia]}".tr('[', '')
     end
+    puts
   end
   
   def todos_sexos
@@ -166,6 +169,7 @@ require 'json'
     rest_sexo_json[0][:res].each do |sexo|
       puts "\t #{sexo[:ranking]}.#{sexo[:nome]} \tFrequência: #{sexo[:frequencia]}"
     end
+    puts
   end
 
   def masculino
@@ -178,6 +182,7 @@ require 'json'
     rest_sexo_json[0][:res].each do |sexo|
       puts "\t #{sexo[:ranking]}.#{sexo[:nome]} \tFrequência: #{sexo[:frequencia]}"
     end
+    puts
   end
 
   def feminino
@@ -190,6 +195,7 @@ require 'json'
     rest_sexo_json[0][:res].each do |sexo|
       puts "\t #{sexo[:ranking]}.#{sexo[:nome]} \tFrequência: #{sexo[:frequencia]}"
     end
+    puts
   end
 
   
@@ -220,6 +226,7 @@ require 'json'
     rest_nome_localidade_json[0][:res].each do |nome|
       puts "\t Periodo: #{nome[:periodo]} - \t Frequência: #{nome[:frequencia]}".tr('[', '')
     end
+    puts
   end
 
   def local
@@ -233,6 +240,7 @@ require 'json'
     rest_localidade_json.each do |localidade|
     puts "\t \t #{localidade[:id]} - #{localidade[:sigla]} - #{localidade[:nome]} "
     end
+    puts
   end 
 
 menu
