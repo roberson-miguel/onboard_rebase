@@ -41,6 +41,6 @@ menu para o usuário escolher a consulta a ser realizada ou sair da plicação.
   1. Oriento que use o RVM para instalar o Ruby 2.6.3, se voce usa ubuntu pode seguir esse manual https://www.edivaldobrito.com.br/como-instalar-o-ruby-version-manager-no-ubuntu/    
   2. Clone o projeto na sua maquina 
   3. Dentro da pasta do projeto rode o comando `bin/setup`
-  4. Talvez precisa rodar `bundle install` 
-  5. Acesse a pasta \lib
-  5. Execute o comando `ruby desafio1.rb`
+  4. Execute o comando `bundle install` 
+  5. Para executar o programa use `ruby lib/desafio1.rb`
+  6. Siga as intruções na tela do programa
