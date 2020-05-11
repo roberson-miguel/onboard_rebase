@@ -16,17 +16,17 @@ require 'json'
     puts
     puts  "\t Escolha uma das opções: \n " 
     puts 
-    puts "\t \t 1 - \tPesquisar Nome no Ranking Geral" 
-    puts "\t \t11 - \tPesquisar nome em Todas Décadas \n"
-    puts "\t \t 2 - \tRanking de Nomes em todas Décadas" 
-    puts "\t \t 3 - \tPesquisar Nomes por década ex. 1950" 
-    puts "\t \t 4 - \tPesquisar por Sexo ex. M ou F" 
-    puts "\t \t 5 - \tPesquisar Nome por Sexo nas Décadas" 
-    puts "\t \t 6 - \tPesquisar Nome por Estado" 
-    puts "\t \t 7 - \tConsultar UF dos Estados" 
-    puts "\t \t 8 - \tRanking de Nomes Masculinos e Femininos" 
-    puts "\t \t 9 - \tRanking de Nomes Masculinos" 
-    puts "\t \t10 - \tRanking de Nomes Femininos \n" 
+    puts "\t \t 1 - \tPesquisar Nome em Todos Estados" 
+    puts "\t \t 2 - \tPesquisar Nome em Todas Décadas \n"
+    puts "\t \t 3 - \tRanking de Nomes em Todas Décadas" 
+    puts "\t \t 4 - \tRanking de Nomes em única Década, ex. 1950" 
+    puts "\t \t 5 - \tRanking de Nomes por único Sexo, ex. Masculino ou Feminino" 
+    puts "\t \t 6 - \tPesquisar Nome por único Sexo em Todas Décadas" 
+    puts "\t \t 7 - \tPesquisar Nome por Estado" 
+    puts "\t \t 8 - \tConsultar UF dos Estados" 
+    puts "\t \t 9 - \tRanking de Nomes Masculinos e Femininos" 
+    puts "\t \t10 - \tRanking de Nomes Masculinos" 
+    puts "\t \t11 - \tRanking de Nomes Femininos \n" 
     puts 
     puts "\t \tPARA FINALIZAR DIGITE: 'sair'" 
     puts 
@@ -36,25 +36,25 @@ require 'json'
       escolha = $stdin.gets.chomp.to_s
       if escolha == "1" then
         return nome 
-      elsif escolha == "11" then
-        return nome_decada 
       elsif escolha == "2" then
-        return todas_decadas
+        return nome_decada 
       elsif escolha == "3" then
-        return decada
+        return todas_decadas
       elsif escolha == "4" then
-        return sexo
+        return decada
       elsif escolha == "5" then
-        return nome_sexo
+        return sexo
       elsif escolha == "6" then
-        return nome_local
+        return nome_sexo
       elsif escolha == "7" then
-        return local
+        return nome_local
       elsif escolha == "8" then
-        return todos_sexos
+        return local
       elsif escolha == "9" then
-        return masculino
+        return todos_sexos
       elsif escolha == "10" then
+        return masculino
+      elsif escolha == "11" then
         return feminino
       
       elsif escolha == "sair" then
