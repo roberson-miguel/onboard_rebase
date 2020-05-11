@@ -213,11 +213,18 @@ require 'json'
     end
     print "\n \t Digite um nome para pesquisar: " 
     nome = gets.chomp 
-    puts "\n \t Digite o numero referente ao Estado "
-    print "\t Exemplo, digite '33' para pesquisar por #{nome} no Estado do Rio de Janeiro: " 
-    localidade = gets.chomp
+    puts "\n \t Digite uma sigla do Estado para pesquisar - Veja Tabela acima."
+    print "\t Exemplo, digite 'SP' para pesquisar o nome: #{nome} no Estado de São Paulo: " 
+    sigla = gets.chomp
+    uf = nil
+    rest_localidade_json.each do |localidade|
+      if localidade[:sigla] == sigla
+        uf = localidade[:id]
+      end
+    end
+        
     puts
-    url_nome_localidade = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{nome}?localidade=#{localidade}"
+    url_nome_localidade = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{nome}?localidade=#{uf}"
     resource_nome_localidade = RestClient::Resource.new(url_nome_localidade)
     rest_nome_localidade = resource_nome_localidade.get
     rest_nome_localidade_json = JSON.parse(rest_nome_localidade, :symbolize_names => true)
