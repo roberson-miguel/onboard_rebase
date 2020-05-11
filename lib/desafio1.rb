@@ -1,6 +1,7 @@
 require 'rest-client'
 require 'json'
 
+class Desafio1
   def menu
     system("clear")
     puts
@@ -251,7 +252,7 @@ require 'json'
     puts "\n \t \t Siglas dos Estados"
     puts
     rest_localidade_json.each do |localidade|
-    puts "\t \t #{localidade[:id]} - #{localidade[:sigla]} - #{localidade[:nome]} "
+    puts "\t \t #{localidade[:sigla]} - #{localidade[:nome]} "
     end
 
     puts "\n \t Digite uma sigla do Estado para pesquisar - Veja Tabela acima."
@@ -263,7 +264,7 @@ require 'json'
         uf = localidade[:id]
       end
     end
-
+    
     puts "\n \t Exibindo Ranking Sexo Masculino por Estado" 
     puts
     url_ranking = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking/?sexo=M&localidade=#{uf}"
@@ -297,7 +298,7 @@ require 'json'
     puts "\n \t \t Siglas dos Estados"
     puts
     rest_localidade_json.each do |localidade|
-    puts "\t \t #{localidade[:id]} - #{localidade[:sigla]} - #{localidade[:nome]} "
+    puts "\t \t #{localidade[:sigla]} - #{localidade[:nome]} "
     end
     print "\n \t Digite um nome para pesquisar: " 
     nome = gets.chomp 
@@ -337,5 +338,5 @@ require 'json'
     end
     puts
   end 
-
-menu
+end
+desafio1 = Desafio1.new.menu
