@@ -28,7 +28,7 @@ class Desafio1
     puts "\t \t 9 - \tRanking de Nomes Masculinos e Femininos" 
     puts "\t \t10 - \tRanking de Nomes Masculinos" 
     puts "\t \t11 - \tRanking de Nomes Femininos \n" 
-    puts "\t \t12 - \tRanking de Nomes por Estado MAsculinos e Femininos \n" 
+    puts "\t \t12 - \tRanking de Nomes por Estado Masculinos e Femininos \n" 
     puts 
     puts "\t \tPARA FINALIZAR DIGITE: 'sair'" 
     puts 
@@ -87,6 +87,25 @@ class Desafio1
     sleep 1.9
   end
 
+  
+  def nome  
+    print "\n \t Digite o nome para pesquisar: " 
+    nome = $stdin.gets.chomp
+    puts
+    url_nome = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{nome}?groupBy=UF"
+    resource_nome = RestClient::Resource.new(url_nome)
+    rest_nome = resource_nome.get
+    rest_nome_json = JSON.parse(rest_nome, :symbolize_names => true)
+
+    puts "\t Ranking para #{nome} por Estado e Frequencia"
+    puts rest_nome_json
+    puts "\t Localidade:\tFrequêcia:"
+    rest_nome_json.each do |ranking|
+      puts "\t #{ranking[:localidade]}\t\t#{ranking[:res][0][:frequencia]}"
+    end 
+    puts
+  end
+
   def nome_decada
     print "\n \t Digite o nome para pesquisar: " 
     nome = $stdin.gets.chomp
@@ -112,25 +131,6 @@ class Desafio1
     end 
     puts
   end 
-
-
-  def nome  
-    print "\n \t Digite o nome para pesquisar: " 
-    nome = $stdin.gets.chomp
-    puts
-    url_nome = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{nome}?groupBy=UF"
-    resource_nome = RestClient::Resource.new(url_nome)
-    rest_nome = resource_nome.get
-    rest_nome_json = JSON.parse(rest_nome, :symbolize_names => true)
-
-    puts "\t Ranking para #{nome} por Estado e Frequencia"
-    puts
-    puts "\t Localidade:\tFrequêcia:"
-    rest_nome_json.each do |ranking|
-      puts "\t #{ranking[:localidade]}\t#{ranking[:res][0][:frequencia]}"
-    end 
-    puts
-  end
     
   def todas_decadas 
     url_ranking = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking/?decada"
@@ -213,7 +213,6 @@ class Desafio1
       puts "\t #{sexo[:ranking]}.#{sexo[:nome]} \tFrequência: #{sexo[:frequencia]}"
     end
     puts
-
   end
 
   def masculino
@@ -339,4 +338,5 @@ class Desafio1
     puts
   end 
 end
-desafio1 = Desafio1.new.menu
+
+Desafio1.new.menu
