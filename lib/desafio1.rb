@@ -1,6 +1,5 @@
-require 'rest-client'
-require 'json'
 require_relative 'processos.rb'
+require_relative 'sexos.rb'
 
   def display
     puts  "\t Escolha uma das opções: \n " 
@@ -37,21 +36,21 @@ require_relative 'processos.rb'
       elsif escolha == "4" then
         return Processos.decada
       elsif escolha == "5" then
-        return Processos.sexo
+        return Sexos.sexo
       elsif escolha == "6" then
-        return Processos.nome_sexo
+        return Sexos.nome_sexo
       elsif escolha == "7" then
         return Processos.nome_local
       elsif escolha == "8" then
         return Processos.local
       elsif escolha == "9" then
-        return Processos.todos_sexos
+        return Sexos.todos_sexos
       elsif escolha == "10" then
-        return Processos.masculino
+        return Sexos.masculino
       elsif escolha == "11" then
-        return Processos.feminino
+        return Sexos.feminino
       elsif escolha == "12" then
-        return Processos.todos_sexos_local
+        return Sexos.todos_sexos_local
       elsif escolha == "sair" then
         return Processos.sair
       else
