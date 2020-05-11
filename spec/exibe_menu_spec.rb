@@ -6,3 +6,4 @@ describe 'Exibe Menu ' do
       expect ("Esse programa traz um ranking").to_str
     end
 end
+  
