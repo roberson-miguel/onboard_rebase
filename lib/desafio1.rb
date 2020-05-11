@@ -2,19 +2,9 @@ require 'rest-client'
 require 'json'
 
 class Desafio1
-  def menu
-    system("clear")
-    puts
-    puts
-    puts "\t Esse programa traz um ranking iterativo dos nomes a partir dos dados mais recentes do CENSO,
-         o IBGE lançou essa aplicação Web que fez muito sucesso em 2016. Você pode consultar os nomes mais 
-         populares que pode ser organizado em décadas e/ou estados do país.
+  
 
-         Além disso você pode buscar pelo seu nome e entender quão frequente é esse nome em um estado ou
-         uma cidade do país. Algumas informações podem ser separadas ainda pela década ou pelo
-         sexo atribuído ao nome.\n"
-    puts
-    puts
+  def display
     puts  "\t Escolha uma das opções: \n " 
     puts 
     puts "\t \t 1 - \tPesquisar Nome em Todos Estados" 
@@ -34,8 +24,12 @@ class Desafio1
     puts 
     puts
     print "\t Digite sua escolha: " 
+    escolha = $stdin.gets.chomp.to_s
+    return menu(escolha)
+  end
+
+  def menu(escolha)
     while true do
-      escolha = $stdin.gets.chomp.to_s
       if escolha == "1" then
         return nome 
       elsif escolha == "2" then
@@ -75,7 +69,7 @@ class Desafio1
     puts
     puts
     sleep 1.9
-    return menu
+    return display
   end
 
   def sair 
@@ -86,7 +80,7 @@ class Desafio1
     puts                                    
     sleep 1.9
   end
-
+  
   def nome  #menu 1
     print "\n \t Digite o nome para pesquisar: " 
     nome = $stdin.gets.chomp
@@ -315,4 +309,17 @@ class Desafio1
   end
 
 end
-Desafio1.new.menu
+
+system("clear")
+puts
+puts
+puts "\t Esse programa traz um ranking iterativo dos nomes a partir dos dados mais recentes do CENSO,
+     o IBGE lançou essa aplicação Web que fez muito sucesso em 2016. Você pode consultar os nomes mais 
+     populares que pode ser organizado em décadas e/ou estados do país.
+
+     Além disso você pode buscar pelo seu nome e entender quão frequente é esse nome em um estado ou
+     uma cidade do país. Algumas informações podem ser separadas ainda pela década ou pelo
+     sexo atribuído ao nome.\n"
+puts
+puts
+Desafio1.new.display
