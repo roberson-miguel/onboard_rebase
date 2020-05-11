@@ -17,7 +17,8 @@ require 'json'
     puts  "\t Escolha uma das opções: \n " 
     puts 
     puts "\t \t 1 - \tPesquisar Nome no Ranking Geral" 
-    puts "\t \t 2 - \tPesquisar Nomes em todas Décadas" 
+    puts "\t \t11 - \tPesquisar nome em Todas Décadas \n"
+    puts "\t \t 2 - \tRanking de Nomes em todas Décadas" 
     puts "\t \t 3 - \tPesquisar Nomes por década ex. 1950" 
     puts "\t \t 4 - \tPesquisar por Sexo ex. M ou F" 
     puts "\t \t 5 - \tPesquisar Nome por Sexo nas Décadas" 
@@ -35,6 +36,8 @@ require 'json'
       escolha = $stdin.gets.chomp.to_s
       if escolha == "1" then
         return nome 
+      elsif escolha == "11" then
+        return nome_decada 
       elsif escolha == "2" then
         return todas_decadas
       elsif escolha == "3" then
@@ -57,41 +60,71 @@ require 'json'
       elsif escolha == "sair" then
         return sair
       else
-        puts
-        puts
-        puts "\t \t Escolha uma das opções..."
-        puts
-        sleep 1.9
-        return menu
+        return opcao_invalida
       end
     end
   end
 
-  def sair 
-    puts 
-    puts "+------------------------------------+" 
-    puts "|                                    |" 
-    puts "|        Saindo...Obrigado...        |"
-    puts "|                                    |" 
-    puts "+------------------------------------+" 
+  def opcao_invalida
+    puts
+    puts
+    puts "\t \t Escolha uma das opções..."
+    puts
     puts
     sleep 1.9
+    return menu
   end
+
+  def sair 
+    puts 
+    puts                            
+    puts "\t \t Saindo...Obrigado..."          
+    puts               
+    puts                                    
+    sleep 1.9
+  end
+
+  def nome_decada
+    print "\n \t Digite o nome para pesquisar: " 
+    nome = $stdin.gets.chomp
+    puts
+        url_nome_br = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{nome}"
+    
+    resource_nome_br = RestClient::Resource.new(url_nome_br)
+    rest_nome_br = resource_nome_br.get
+    rest_nome_br_json = JSON.parse(rest_nome_br, :symbolize_names => true)
+   
+    puts "\t Consultando Nome por Periodos"
+    puts
+    puts "\t Periodo:\tFrequêcia:"
+
+    linha = 0
+    rest_nome_br_json[0][:res].each do |ranking|
+      if linha == 0
+        puts "\t Até  #{ranking[:periodo]}\t\t#{ranking[:frequencia]}".tr('[', '')
+        linha = linha + 1
+      else
+      puts "\t #{ranking[:periodo]}\t\t#{ranking[:frequencia]}".tr('[', '')
+      end
+    end 
+    puts
+  end 
+
 
   def nome  
     print "\n \t Digite o nome para pesquisar: " 
     nome = $stdin.gets.chomp
     puts
-    groupBy = "UF"
-    url_nomes = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{nome}?groupBy=#{groupBy}"
-    resource_nome = RestClient::Resource.new(url_nomes)
+    url_nome = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{nome}?groupBy=UF"
+    resource_nome = RestClient::Resource.new(url_nome)
     rest_nome = resource_nome.get
     rest_nome_json = JSON.parse(rest_nome, :symbolize_names => true)
-    puts "\t Ranking para #{nome} nas Localidades e com a Frequencia"
+
+    puts "\t Ranking para #{nome} por Estado e Frequencia"
     puts
-    puts "\tLocalidade:\tFrequêcia:"
+    puts "\t Localidade:\tFrequêcia:"
     rest_nome_json.each do |ranking|
-      puts "\t #{ranking[:localidade]}\t\t#{ranking[:res][0][:frequencia]}"
+      puts "\t #{ranking[:localidade]}\t#{ranking[:res][0][:frequencia]}"
     end 
     puts
   end
@@ -151,11 +184,18 @@ require 'json'
     rest_periodo_decada = resource_periodo.get
     rest_periodo_decada_json = JSON.parse(rest_periodo_decada, :symbolize_names => true)
     tam_periodo_res = rest_periodo_decada_json[0][:res].size
-    puts "\t Consultando #{nome} por Sexo nos Periodos"
+    puts "\tConsultando #{nome} por Sexo nos Periodos"
     puts
-    rest_periodo_decada_json[0][:res].each do |decada|
-      puts "\t Periodo: #{decada[:periodo]} - \t Frequência: #{decada[:frequencia]}".tr('[', '')
-    end
+    puts "\tPeriodo: \tFrequêcia:"
+    linha = 0
+    rest_periodo_decada_json[0][:res].each do |ranking|
+      if linha == 0
+        puts "\tAté  #{ranking[:periodo]} - \t#{ranking[:frequencia]}".tr('[', '')
+        linha = linha + 1
+      else
+        puts "\t#{ranking[:periodo]} - \t#{ranking[:frequencia]}".tr('[', '')
+      end
+    end 
     puts
   end
   
