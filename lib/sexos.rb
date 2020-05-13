@@ -131,6 +131,16 @@ class Sexos
         uf = localidade[:id]
       end
     end
+
+    puts "\n \t Exibindo Ranking Geral para o Estado de: #{uf}" 
+    puts
+    url_m = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking/?localidade=#{uf}"
+    resource_m = RestClient::Resource.new(url_m)
+    json_m = JSON.parse(resource_m.get, :symbolize_names => true)
+    json_m[0][:res].each do |sexo|
+      puts "\t #{sexo[:ranking]}.#{sexo[:nome]} \tFrequência: #{sexo[:frequencia]}"
+    end
+    puts
     
     puts "\n \t Exibindo Ranking Sexo Masculino por Estado" 
     puts
