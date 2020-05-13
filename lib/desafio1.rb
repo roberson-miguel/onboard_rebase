@@ -4,8 +4,13 @@ require_relative 'sexos.rb'
   def display
     puts  "\t Escolha uma das opções: \n " 
     puts 
+    puts "\t \t Atalhos para os itens Desafio 1"
+    puts "\t \t12 - \t Item 1 - Ranking dos nomes mais comuns em uma determinada Unidade Federativa (UF)\n" 
+    puts "\t \t 2 - \t Item 3 - Frequência do uso de um nome ao longo dos anos \n"
+    puts 
+    puts "\t \t Extras "
     puts "\t \t 1 - \tPesquisar Nome em Todos Estados" 
-    puts "\t \t 2 - \tPesquisar Nome em Todas Décadas \n"
+    puts "\t \t 2 - \tFrequência do uso de um nome ao longo dos anos \n"
     puts "\t \t 3 - \tRanking de Nomes em Todas Décadas" 
     puts "\t \t 4 - \tRanking de Nomes em única Década, ex. 1950" 
     puts "\t \t 5 - \tRanking de Nomes por único Sexo, ex. Masculino ou Feminino" 
@@ -15,7 +20,7 @@ require_relative 'sexos.rb'
     puts "\t \t 9 - \tRanking de Nomes Masculinos e Femininos" 
     puts "\t \t10 - \tRanking de Nomes Masculinos" 
     puts "\t \t11 - \tRanking de Nomes Femininos \n" 
-    puts "\t \t12 - \tRanking de Nomes por Estado Masculinos e Femininos \n" 
+    puts "\t \t12 - \tRanking dos nomes mais comuns em uma determinada Unidade Federativa (UF) \n" 
     puts 
     puts "\t \tPARA FINALIZAR DIGITE: 'sair'" 
     puts 
