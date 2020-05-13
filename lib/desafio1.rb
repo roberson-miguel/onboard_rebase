@@ -4,11 +4,14 @@ require_relative 'sexos.rb'
   def display
     puts  "\t Escolha uma das opções: \n " 
     puts 
-    puts "\t \t Atalhos para os itens Desafio 1"
-    puts "\t \t12 - \t Item 1 - Ranking dos nomes mais comuns em uma determinada Unidade Federativa (UF)\n" 
-    puts "\t \t 2 - \t Item 3 - Frequência do uso de um nome ao longo dos anos \n"
+    puts "\t \tAtalhos para os itens Desafio 1"
+    puts "\t \tOpção: "
+    puts "\t \t12 - \t Ranking dos nomes mais comuns em uma determinada Unidade Federativa (UF)\n" 
+    puts "\t \t13 - \t Ranking dos nomes mais comuns em uma determinada cidade\n"
+    puts "\t \t 2 - \t Frequência do uso de um nome ao longo dos anos \n"
     puts 
-    puts "\t \t Extras "
+    puts "\t \tTodas Consultas possiveis "
+    puts "\t \tOpção: "
     puts "\t \t 1 - \tPesquisar Nome em Todos Estados" 
     puts "\t \t 2 - \tFrequência do uso de um nome ao longo dos anos \n"
     puts "\t \t 3 - \tRanking de Nomes em Todas Décadas" 
@@ -21,6 +24,8 @@ require_relative 'sexos.rb'
     puts "\t \t10 - \tRanking de Nomes Masculinos" 
     puts "\t \t11 - \tRanking de Nomes Femininos \n" 
     puts "\t \t12 - \tRanking dos nomes mais comuns em uma determinada Unidade Federativa (UF) \n" 
+    puts "\t \t13 - \tRanking dos nomes mais comuns em uma determinada cidade\n" 
+    puts "\t \t14 - \tConsultar Nomes das cidades\n"
     puts 
     puts "\t \tPARA FINALIZAR DIGITE: 'sair'" 
     puts 
@@ -56,6 +61,10 @@ require_relative 'sexos.rb'
         return Sexos.feminino
       elsif escolha == "12" then
         return Sexos.todos_sexos_local
+      elsif escolha == "13" then
+        return Processos.nome_cidade
+      elsif escolha == "14" then
+        return Processos.cidade
       elsif escolha == "sair" then
         return Processos.sair
       else
