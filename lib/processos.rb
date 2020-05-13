@@ -171,4 +171,58 @@ class Processos
     puts
   end
 
+  def self.nomes_cidade #menu 15
+    url_municipio = "https://servicodados.ibge.gov.br/api/v1/localidades/municipios"
+    resource_municipio= RestClient::Resource.new(url_municipio)
+    json_municipio = JSON.parse(resource_municipio.get, :symbolize_names => true)
+   
+    print "\n \t Digite um ou mais nomes, separados por virgula, ex.: 'maria,joao' para pesquisar: " 
+    nome = gets.chomp 
+    puts "\n \t Digite o nome de uma Cidade"
+    print "\t Exemplo, digite 'São Paulo' para pesquisar o(s) nome(s): #{nome} na Cidade de São Paulo: " 
+      nome_cidade = gets.chomp
+      id_municipio = nil
+      json_municipio.each do |municipio|
+        if municipio[:nome] == nome_cidade
+           id_municipio = municipio[:id]
+        end
+      end
+    puts
+    nomes = nome.split(/,/) # => ["a", "b", "c"]
+    puts 
+    if nomes.length == 1
+      url_nome0 = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{nomes[0]}?localidade=#{id_municipio}"
+      resource_nome0 = RestClient::Resource.new(url_nome0)
+      json_nome0 = JSON.parse(resource_nome0.get, :symbolize_names => true)
+      puts "\t Consultando nome: #{nomes[0]} no Municipio #{nome_cidade} nos Periodos"
+      puts
+      puts "\t Exibindo #{nomes[0]} no Municipio #{nome_cidade} nos Periodos"
+        json_nome0[0][:res].each do |nome|
+          puts "\t Periodo: #{nome[:periodo]} - \t Frequência: #{nome[:frequencia]}".tr('[', '')
+        end
+      puts
+    elsif nomes.length > 1
+      url_nome0 = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{nomes[0]}?localidade=#{id_municipio}"
+      resource_nome0 = RestClient::Resource.new(url_nome0)
+      json_nome0 = JSON.parse(resource_nome0.get, :symbolize_names => true)
+      puts "\t Consultando nomes: #{nomes[0]} e #{nomes[1]}  no Municipio #{nome_cidade} nos Periodos"
+      puts
+      puts "\t Exibindo #{nomes[0]} no Municipio #{nome_cidade} nos Periodos"
+        json_nome0[0][:res].each do |nome|
+          puts "\t Periodo: #{nome[:periodo]} - \t Frequência: #{nome[:frequencia]}".tr('[', '')
+        end
+      puts
+
+      url_nome1 = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{nomes[1]}?localidade=#{id_municipio}"
+      resource_nome1 = RestClient::Resource.new(url_nome1)
+      json_nome1 = JSON.parse(resource_nome1.get, :symbolize_names => true)
+      puts
+      puts "\t Exibindo #{nomes[1]} no Municipio #{nome_cidade} nos Periodos"
+      json_nome1[0][:res].each do |nome|
+        puts "\t Periodo: #{nome[:periodo]} - \t Frequência: #{nome[:frequencia]}".tr('[', '')
+      end
+    end 
+    puts
+  end
+
 end
