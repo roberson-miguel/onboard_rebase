@@ -218,8 +218,7 @@ class Processos
       puts
     else
       fim = nomes.length - 1
-      i = 0
-      while i <= fim do
+      for i in 0..fim
         url_nome0 = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{nomes[i]}?localidade=#{id_municipio}"
         resource_nome0 = RestClient::Resource.new(url_nome0)
         json_nome0 = JSON.parse(resource_nome0.get, :symbolize_names => true)
@@ -230,7 +229,6 @@ class Processos
             puts "\t Periodo: #{nome[:periodo]} - \t Frequência: #{nome[:frequencia]}".tr('[', '')
           end
         puts
-        i = i + 1
       end
     end
   end 
