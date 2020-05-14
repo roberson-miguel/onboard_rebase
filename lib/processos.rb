@@ -146,35 +146,8 @@ class Processos
     puts
   end 
 
-  def self.nome_cidade #menu 13
-    url_municipio = "https://servicodados.ibge.gov.br/api/v1/localidades/municipios"
-    resource_municipio= RestClient::Resource.new(url_municipio)
-    json_municipio = JSON.parse(resource_municipio.get, :symbolize_names => true)
-   
-    print "\n \t Digite um nome para pesquisar: " 
-    nome = gets.chomp 
-    puts "\n \t Digite o nome de uma Cidade"
-    print "\t Exemplo, digite 'São Paulo' para pesquisar o nome: #{nome} na Cidade de São Paulo: " 
-      nome_cidade = gets.chomp
-      id_municipio = nil
-      json_municipio.each do |municipio|
-        if municipio[:nome] == nome_cidade
-           id_municipio = municipio[:id]
-        end
-      end
-    puts
-    url = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{nome}?localidade=#{id_municipio}"
-    resource = RestClient::Resource.new(url)
-    json = JSON.parse(resource.get, :symbolize_names => true)
-    puts "\t Consultando #{nome} no Municipio #{nome_cidade} nos Periodos"
-    puts
-      json[0][:res].each do |nome|
-        puts "\t Periodo: #{nome[:periodo]} - \t Frequência: #{nome[:frequencia]}".tr('[', '')
-      end
-    puts
-  end
 
-  def self.cidade #menu 14
+  def self.cidade #menu 13
     url_municipio = "https://servicodados.ibge.gov.br/api/v1/localidades/municipios"
     resource_municipio= RestClient::Resource.new(url_municipio)
     json_municipio = JSON.parse(resource_municipio.get, :symbolize_names => true)
@@ -186,7 +159,7 @@ class Processos
     puts
   end
 
-  def self.nomes_cidade #menu 15
+  def self.nomes_cidade #menu 14
     url_municipio = "https://servicodados.ibge.gov.br/api/v1/localidades/municipios"
     resource_municipio= RestClient::Resource.new(url_municipio)
     json_municipio = JSON.parse(resource_municipio.get, :symbolize_names => true)

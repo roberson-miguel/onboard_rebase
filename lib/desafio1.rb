@@ -7,7 +7,7 @@ require_relative 'sexos.rb'
     puts "\t \tAtalhos para os itens Desafio 1"
     puts "\t \tOpção: "
     puts "\t \t12 - \t Ranking dos nomes mais comuns em uma determinada Unidade Federativa (UF)\n" 
-    puts "\t \t15 - \t Ranking dos nomes mais comuns em uma determinada cidade\n"
+    puts "\t \t14 - \t Ranking dos nomes mais comuns em uma determinada cidade\n"
     puts "\t \t 2 - \t Frequência do uso de um nome ao longo dos anos \n"
     puts 
     puts "\t \tTodas Consultas possiveis "
@@ -24,7 +24,6 @@ require_relative 'sexos.rb'
     puts "\t \t10 - \tRanking de Nomes Masculinos" 
     puts "\t \t11 - \tRanking de Nomes Femininos \n" 
     puts "\t \t12 - \tRanking dos nomes mais comuns em uma determinada Unidade Federativa (UF) \n" 
-    puts "\t \t13 - \tPesquisar Nome mais em uma determinada cidade\n" 
     puts "\t \t14 - \tConsultar Nomes das cidades\n"
     puts "\t \t15 - \tRanking dos nomes mais comuns em uma determinada cidade"
     puts 
@@ -63,10 +62,8 @@ require_relative 'sexos.rb'
       elsif escolha == "12" then
         return Sexos.todos_sexos_local
       elsif escolha == "13" then
-        return Processos.nome_cidade
-      elsif escolha == "14" then
         return Processos.cidade
-      elsif escolha == "15" then
+      elsif escolha == "14" then
         return Processos.nomes_cidade
       elsif escolha == "sair" then
         return Processos.sair
