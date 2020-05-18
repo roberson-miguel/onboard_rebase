@@ -1,6 +1,17 @@
 require_relative 'processos.rb'
 require_relative 'sexos.rb'
 
+system("clear")
+puts
+puts
+puts "\t \t Esse programa traz um ranking iterativo dos nomes a partir dos dados mais recentes do CENSO,
+            o IBGE lançou essa aplicação Web que fez muito sucesso em 2016. Você pode consultar os nomes mais 
+            populares que pode ser organizado em décadas e/ou estados do país.
+
+            Além disso você pode buscar pelo seu nome e entender quão frequente é esse nome em um estado ou
+            uma cidade do país. Algumas informações podem ser separadas ainda pela década ou pelo
+            sexo atribuído ao nome.\n"
+puts
 
   def url_base(uri)
     url = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{uri}"
@@ -15,16 +26,16 @@ require_relative 'sexos.rb'
   end
 
   def display
-    puts  "\t Escolha uma das opções: \n " 
+    puts "\t \t Escolha uma das opções: \n " 
     puts 
-    puts "\t \tAtalhos para os itens Desafio 1"
-    puts "\t \tOpção: "
-    puts "\t \t12 - \t Ranking dos nomes mais comuns em uma determinada Unidade Federativa (UF)\n" 
-    puts "\t \t14 - \t Ranking dos nomes mais comuns em uma determinada cidade\n"
+    puts "\t \t Atalhos cosultar os itens do Desafio1: "
+    puts
+    puts "\t \t 12 - \t Ranking dos nomes mais comuns em uma determinada Unidade Federativa (UF)\n" 
+    puts "\t \t 14 - \t Ranking dos nomes mais comuns em uma determinada cidade\n"
     puts "\t \t 2 - \t Frequência do uso de um nome ao longo dos anos \n"
     puts 
-    puts "\t \tTodas Consultas possiveis "
-    puts "\t \tOpção: "
+    puts "\t \tMais Consultas possíveis: "
+    puts
     puts "\t \t 1 - \tPesquisar Nome em Todos Estados" 
     puts "\t \t 2 - \tFrequência do uso de um nome ao longo dos anos \n"
     puts "\t \t 3 - \tRanking de Nomes em Todas Décadas" 
@@ -85,17 +96,5 @@ require_relative 'sexos.rb'
       end
     end
   end
-
-system("clear")
-puts
-puts
-puts "\t Esse programa traz um ranking iterativo dos nomes a partir dos dados mais recentes do CENSO,
-     o IBGE lançou essa aplicação Web que fez muito sucesso em 2016. Você pode consultar os nomes mais 
-     populares que pode ser organizado em décadas e/ou estados do país.
-
-     Além disso você pode buscar pelo seu nome e entender quão frequente é esse nome em um estado ou
-     uma cidade do país. Algumas informações podem ser separadas ainda pela década ou pelo
-     sexo atribuído ao nome.\n"
-puts
 puts
 display
