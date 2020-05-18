@@ -1,20 +1,9 @@
 require 'rest-client'
 require 'json'
-require 'text-table'
-require_relative 'formatador'
-
-require 'ruby-progressbar'
-
 
 class Processos
 
   def self.opcao_invalida
-    table = Text::Table.new :rows => [['Escolha uma das opções'], [" de 1 a 15"]],
-                :horizontal_padding    => 3,
-                :vertical_boundary     => '=',
-                :horizontal_boundary   => ':',
-                :boundary_intersection => '+'
-    puts table
     puts
     puts
     puts "\t \t Escolha uma das opções..."
@@ -39,12 +28,9 @@ class Processos
     puts
     uri = "#{nome}?groupBy=UF"
     json = url_base(uri)
-    # Formatador.display_table(json, [:localidade, :res])
-    
     puts "\t Ranking para #{nome} por Estado e Frequencia"
     puts "\t Localidade:\tFrequêcia:"
-    json.each do |ranking|
-      
+    json.each do |ranking|   
       puts "\t #{ranking[:localidade]}\t\t#{ranking[:res][0][:frequencia]}"
     end 
     puts
@@ -61,8 +47,6 @@ class Processos
     puts "\t Periodo:\tFrequêcia:"
     linha = 0
     json.to_s.gsub("[","")
-    Formatador.display_table(json[0][:res], [:periodo, :frequencia])
-
     json[0][:res].each do |ranking|
       if linha == 0
         puts "\t Até  #{ranking[:periodo]}\t\t#{ranking[:frequencia]}".tr('[', '')
