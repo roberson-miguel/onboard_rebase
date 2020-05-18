@@ -8,6 +8,12 @@ require_relative 'sexos.rb'
     json = JSON.parse(resource.get, :symbolize_names => true)
   end
 
+  def url_base_local(uri)
+    url = "https://servicodados.ibge.gov.br/api/v1/localidades/#{uri}"
+    resource = RestClient::Resource.new(url)
+    json = JSON.parse(resource.get, :symbolize_names => true)
+  end
+
   def display
     puts  "\t Escolha uma das opções: \n " 
     puts 

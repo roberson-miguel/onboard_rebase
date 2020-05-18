@@ -101,9 +101,8 @@ class Processos
  
   def self.nome_local #menu 7
     system("clear")
-    url = "https://servicodados.ibge.gov.br/api/v1/localidades/estados"
-    resource = RestClient::Resource.new(url)
-    json = JSON.parse(resource.get, :symbolize_names => true)
+    uri = "estados"
+    json = url_base_local(uri)
     puts "\n \t \t Siglas dos Estados"
     puts
     json.each do |localidade|
@@ -132,9 +131,8 @@ class Processos
   end
 
   def self.local #menu 8
-          url = "https://servicodados.ibge.gov.br/api/v1/localidades/estados"
-          resource = RestClient::Resource.new(url)
-          json = JSON.parse(resource.get, :symbolize_names => true)
+          uri = "estados"
+          json = url_base_local(uri)
           puts "\n \n \t \t Consultando siglas das localidades"
           puts
           json.each do |localidade|
@@ -145,9 +143,8 @@ class Processos
 
 
   def self.cidade #menu 13
-          url = "https://servicodados.ibge.gov.br/api/v1/localidades/municipios"
-          resource = RestClient::Resource.new(url)
-          json = JSON.parse(resource.get, :symbolize_names => true)
+          uri = "municipios"
+          json = url_base_local(uri)
           puts "\n \t \t Consultar Ids e Nomes das Cidades"
           puts
           json.each do |municipio|
@@ -157,9 +154,8 @@ class Processos
   end
 
   def self.nomes_cidade #menu 14
-    url = "https://servicodados.ibge.gov.br/api/v1/localidades/municipios"
-    resource = RestClient::Resource.new(url)
-    json = JSON.parse(resource.get, :symbolize_names => true)
+    uri = "municipios"
+    json = url_base_local(uri)
     print "\n \t Digite um ou mais nomes, separados por virgula, ex.: 'maria,joao' para pesquisar: " 
     nome = gets.chomp 
     puts "\n \t Digite o nome de uma Cidade"

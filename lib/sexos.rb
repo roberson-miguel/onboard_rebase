@@ -77,9 +77,8 @@ class Sexos
 
   def self.todos_sexos_local #menu 12
     system("clear")
-    url = "https://servicodados.ibge.gov.br/api/v1/localidades/estados"
-    resource = RestClient::Resource.new(url)
-    json = JSON.parse(resource.get, :symbolize_names => true)
+    uri = "estados"
+    json = url_base_local(uri)
     puts "\n \t \t Siglas dos Estados"
     puts
     json.each do |localidade|
