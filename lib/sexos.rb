@@ -3,14 +3,20 @@ require 'json'
 
 class Sexos
 
+  def self.url_base(uri)
+    url = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{uri}"
+    resource = RestClient::Resource.new(url)
+    json = JSON.parse(resource.get, :symbolize_names => true)
+  end
+
+
   def self.sexo #menu 5
     puts "\n \t Escolha um Sexo para pesquisar" 
     print  "\n \t 'M' para Masculino ou 'F' para FEMININO: " 
     sexo = gets.chomp
     puts
-    url = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking/?sexo=#{sexo}"
-    resource = RestClient::Resource.new(url)
-    json = JSON.parse(resource.get, :symbolize_names => true)
+    uri = "ranking/?sexo=#{sexo}"
+    json = url_base(uri)
     puts "\t Ranking de Nome por Sexo "
     puts
     json[0][:res].each do |sexo|
@@ -25,7 +31,7 @@ class Sexos
     print  "\n \tEscolha o sexo para o nome: #{nome}, ex. 'M' para Masculino 'F' para FEMININO: " 
     sexo = gets.chomp
     puts
-    url = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{nome}?sexo=#{sexo}"
+    uri = "#{nome}?sexo=#{sexo}"
     resource = RestClient::Resource.new(url)
     json = JSON.parse(resource.get, :symbolize_names => true)
     puts "\tConsultando #{nome} por Sexo nos Periodos"
@@ -46,42 +52,9 @@ class Sexos
   def self.todos_sexos #menu 9
     puts "\n \t Exibindo Ranking de nomes Masculinos e Femininos " 
     puts
-    url = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking/?sexo=''"
-    resource = RestClient::Resource.new(url)
-    json = JSON.parse(resource.get, :symbolize_names => true)
-    json[0][:res].each do |sexo|def self.nome_local #menu 7
-      system("clear")
-      url = "https://servicodados.ibge.gov.br/api/v1/localidades/estados"
-      resource = RestClient::Resource.new(url)
-      json = JSON.parse(resource.get, :symbolize_names => true)
-      puts "\n \t \t Siglas dos Estados"
-      puts
-      json.each do |localidade|
-      puts "\t \t #{localidade[:sigla]} - #{localidade[:nome]} "
-      end
-      print "\n \t Digite um nome para pesquisar: " 
-      nome = gets.chomp 
-      puts "\n \t Digite uma sigla do Estado para pesquisar - Veja Tabela acima."
-      print "\t Exemplo, digite 'SP' para pesquisar o nome: #{nome} no Estado de São Paulo: " 
-        sigla = gets.chomp
-        uf = nil
-        json.each do |localidade|
-          if localidade[:sigla] == sigla
-            uf = localidade[:id]
-          end
-        end
-      puts
-      url = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{nome}?localidade=#{uf}"
-      resource = RestClient::Resource.new(url)
-      json = JSON.parse(resource.get, :symbolize_names => true)
-      puts "\t Consultando Nome por Estado nos Periodos"
-      puts
-        json[0][:res].each do |nome|
-          puts "\t Periodo: #{nome[:periodo]} - \t Frequência: #{nome[:frequencia]}".tr('[', '')
-        end
-      puts
-    end
-  
+    uri = "ranking/?sexo=''"
+    json = url_base(uri)
+    json[0][:res].each do |sexo|
       puts "\t #{sexo[:ranking]}.#{sexo[:nome]} \tFrequência: #{sexo[:frequencia]}"
     end
     puts
@@ -90,9 +63,8 @@ class Sexos
   def self.masculino #menu 10
     puts "\n \t Exibindo Ranking de nomes Masculinos " 
     puts
-    url = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking/?sexo=M"
-    resource = RestClient::Resource.new(url)
-    json = JSON.parse(resource.get, :symbolize_names => true)
+    uri = "ranking/?sexo=M"
+    json = url_base(uri)
     json[0][:res].each do |sexo|
       puts "\t #{sexo[:ranking]}.#{sexo[:nome]} \tFrequência: #{sexo[:frequencia]}"
     end
@@ -102,9 +74,8 @@ class Sexos
   def self.feminino #Menu 11
     puts "\n \t Exibindo Ranking de nomes Femininos " 
     puts
-    url = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking/?sexo=F"
-    resource = RestClient::Resource.new(url)
-    json = JSON.parse(resource.get, :symbolize_names => true)
+    uri = "ranking/?sexo=F"
+    json = url_base(uri)
     json[0][:res].each do |sexo|
       puts "\t #{sexo[:ranking]}.#{sexo[:nome]} \tFrequência: #{sexo[:frequencia]}"
     end
@@ -134,9 +105,8 @@ class Sexos
 
     puts "\n \t Exibindo Ranking Geral para o Estado de: #{uf}" 
     puts
-    url = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking/?localidade=#{uf}"
-    resource = RestClient::Resource.new(url)
-    json= JSON.parse(resource.get, :symbolize_names => true)
+    uri = "ranking/?localidade=#{uf}"
+    json = url_base(uri)
     json[0][:res].each do |sexo|
       puts "\t #{sexo[:ranking]}.#{sexo[:nome]} \tFrequência: #{sexo[:frequencia]}"
     end
@@ -144,9 +114,8 @@ class Sexos
     
     puts "\n \t Exibindo Ranking Sexo Masculino por Estado" 
     puts
-    url = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking/?sexo=M&localidade=#{uf}"
-    resource = RestClient::Resource.new(url)
-    json = JSON.parse(resource.get, :symbolize_names => true)
+    uri = "ranking/?sexo=M&localidade=#{uf}"
+    json = url_base(uri)
     json[0][:res].each do |sexo|
       puts "\t #{sexo[:ranking]}.#{sexo[:nome]} \tFrequência: #{sexo[:frequencia]}"
     end
@@ -154,9 +123,8 @@ class Sexos
 
     puts "\n \t Exibindo Ranking Sexo Feminino por Estado" 
     puts
-    url = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking/?sexo=F&localidade=#{uf}"
-    resource = RestClient::Resource.new(url)
-    json = JSON.parse(resource.get, :symbolize_names => true)
+    uri = "ranking/?sexo=F&localidade=#{uf}"
+    json = url_base(uri)
     json[0][:res].each do |sexo|
       puts "\t #{sexo[:ranking]}.#{sexo[:nome]} \tFrequência: #{sexo[:frequencia]}"
     end
