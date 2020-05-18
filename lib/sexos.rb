@@ -1,7 +1,6 @@
 require 'rest-client'
 require 'json'
 
-
 class Sexos
 
   def self.sexo #menu 5

@@ -154,30 +154,20 @@ class Processos
     puts
     nomes = nome.split(/,/) # => ["a", "b", "c"]
     puts 
-  
-    if nomes.length == 1
-      uri = "#{nomes[0]}?localidade=#{id_municipio}"
+   
+    fim = nomes.length - 1
+    puts "\t Consultando multiplus nomes no Municipio #{nome_cidade} nos Periodos"
+    for i in 0..fim
+      uri = "#{nomes[i]}?localidade=#{id_municipio}"
       json = url_base(uri)
-      puts
-      puts "\t Exibindo #{nomes[0]} no Municipio #{nome_cidade} nos Periodos"
+      puts 
+      puts "\t Exibindo #{nomes[i].capitalize} no Municipio #{nome_cidade} nos Periodos"
         json[0][:res].each do |nome|
           puts "\t Periodo: #{nome[:periodo]} - \t Frequência: #{nome[:frequencia]}".tr('[', '')
         end
       puts
-    else
-      fim = nomes.length - 1
-      puts "\t Consultando multiplus nomes no Municipio #{nome_cidade} nos Periodos"
-      for i in 0..fim
-        uri = "#{nomes[i]}?localidade=#{id_municipio}"
-        json = url_base(uri)
-        puts 
-        puts "\t Exibindo #{nomes[i].capitalize} no Municipio #{nome_cidade} nos Periodos"
-          json[0][:res].each do |nome|
-            puts "\t Periodo: #{nome[:periodo]} - \t Frequência: #{nome[:frequencia]}".tr('[', '')
-          end
-        puts
-      end
     end
+  
   end 
 
 end
