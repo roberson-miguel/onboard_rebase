@@ -2,6 +2,7 @@ require 'rest-client'
 require 'json'
 require 'text-table'
 require_relative 'formatador'
+require 'ruby-progressbar'
 
 
 class Processos
@@ -135,42 +136,41 @@ class Processos
   end
 
   def self.local #menu 8
-    url = "https://servicodados.ibge.gov.br/api/v1/localidades/estados"
-    resource = RestClient::Resource.new(url)
-    json = JSON.parse(resource.get, :symbolize_names => true)
-    puts "\n \n \t \t Consultando siglas das localidades"
-    puts
-    json.each do |localidade|
-    puts "\t \t #{localidade[:sigla]} - #{localidade[:nome]} "
-    end
-    puts
+          url = "https://servicodados.ibge.gov.br/api/v1/localidades/estados"
+          resource = RestClient::Resource.new(url)
+          json = JSON.parse(resource.get, :symbolize_names => true)
+          puts "\n \n \t \t Consultando siglas das localidades"
+          puts
+          json.each do |localidade|
+          puts "\t \t #{localidade[:sigla]} - #{localidade[:nome]} "
+          end
+          puts
   end 
 
 
   def self.cidade #menu 13
-    url_municipio = "https://servicodados.ibge.gov.br/api/v1/localidades/municipios"
-    resource_municipio= RestClient::Resource.new(url_municipio)
-    json_municipio = JSON.parse(resource_municipio.get, :symbolize_names => true)
-    puts "\n \t \t Consultar Ids e Nomes das Cidades"
-    puts
-    json_municipio.each do |municipio|
-    puts "\t \t #{municipio[:id]} - #{municipio[:nome]} "
-    end
-    puts
+          url = "https://servicodados.ibge.gov.br/api/v1/localidades/municipios"
+          resource = RestClient::Resource.new(url)
+          json = JSON.parse(resource.get, :symbolize_names => true)
+          puts "\n \t \t Consultar Ids e Nomes das Cidades"
+          puts
+          json.each do |municipio|
+          puts "\t \t #{municipio[:id]} - #{municipio[:nome]} "
+          end
+          puts
   end
 
   def self.nomes_cidade #menu 14
-    url_municipio = "https://servicodados.ibge.gov.br/api/v1/localidades/municipios"
-    resource_municipio= RestClient::Resource.new(url_municipio)
-    json_municipio = JSON.parse(resource_municipio.get, :symbolize_names => true)
-   
+    url = "https://servicodados.ibge.gov.br/api/v1/localidades/municipios"
+    resource = RestClient::Resource.new(url)
+    json = JSON.parse(resource.get, :symbolize_names => true)
     print "\n \t Digite um ou mais nomes, separados por virgula, ex.: 'maria,joao' para pesquisar: " 
     nome = gets.chomp 
     puts "\n \t Digite o nome de uma Cidade"
     print "\t Exemplo, digite 'São Paulo' para pesquisar o(s) nome(s): #{nome} na Cidade de São Paulo: " 
       nome_cidade = gets.chomp
       id_municipio = nil
-      json_municipio.each do |municipio|
+      json.each do |municipio|
         if municipio[:nome] == nome_cidade
            id_municipio = municipio[:id]
         end
@@ -178,27 +178,27 @@ class Processos
     puts
     nomes = nome.split(/,/) # => ["a", "b", "c"]
     puts 
+  
     if nomes.length == 1
-      url_nome0 = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{nomes[0]}?localidade=#{id_municipio}"
-      resource_nome0 = RestClient::Resource.new(url_nome0)
-      json_nome0 = JSON.parse(resource_nome0.get, :symbolize_names => true)
-      puts "\t Consultando nome: #{nomes[0]} no Municipio #{nome_cidade} nos Periodos"
+      url = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{nomes[0]}?localidade=#{id_municipio}"
+      resource = RestClient::Resource.new(url)
+      json = JSON.parse(resource.get, :symbolize_names => true)
       puts
       puts "\t Exibindo #{nomes[0]} no Municipio #{nome_cidade} nos Periodos"
-        json_nome0[0][:res].each do |nome|
+        json[0][:res].each do |nome|
           puts "\t Periodo: #{nome[:periodo]} - \t Frequência: #{nome[:frequencia]}".tr('[', '')
         end
       puts
     else
       fim = nomes.length - 1
+      puts "\t Consultando multiplus nomes no Municipio #{nome_cidade} nos Periodos"
       for i in 0..fim
-        url_nome0 = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{nomes[i]}?localidade=#{id_municipio}"
-        resource_nome0 = RestClient::Resource.new(url_nome0)
-        json_nome0 = JSON.parse(resource_nome0.get, :symbolize_names => true)
-        puts "\t Consultando multiplos nomes no Municipio #{nome_cidade} nos Periodos"
+        url = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{nomes[i]}?localidade=#{id_municipio}"
+        resource = RestClient::Resource.new(url)
+        json = JSON.parse(resource.get, :symbolize_names => true)
         puts 
         puts "\t Exibindo #{nomes[i].capitalize} no Municipio #{nome_cidade} nos Periodos"
-          json_nome0[0][:res].each do |nome|
+          json[0][:res].each do |nome|
             puts "\t Periodo: #{nome[:periodo]} - \t Frequência: #{nome[:frequencia]}".tr('[', '')
           end
         puts

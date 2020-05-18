@@ -24,8 +24,8 @@ require_relative 'sexos.rb'
     puts "\t \t10 - \tRanking de Nomes Masculinos" 
     puts "\t \t11 - \tRanking de Nomes Femininos \n" 
     puts "\t \t12 - \tRanking dos nomes mais comuns em uma determinada Unidade Federativa (UF) \n" 
-    puts "\t \t14 - \tConsultar Nomes das cidades\n"
-    puts "\t \t15 - \tRanking dos nomes mais comuns em uma determinada cidade"
+    puts "\t \t13 - \tConsultar Nomes das cidades\n"
+    puts "\t \t14 - \tRanking dos nomes mais comuns em uma determinada cidade"
     puts 
     puts "\t \tPARA FINALIZAR DIGITE: 'sair'" 
     puts 
