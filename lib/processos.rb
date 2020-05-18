@@ -2,6 +2,7 @@ require 'rest-client'
 require 'json'
 require 'text-table'
 require_relative 'formatador'
+
 require 'ruby-progressbar'
 
 
@@ -36,9 +37,8 @@ class Processos
     print "\n \t Digite o nome para pesquisar: " 
     nome = $stdin.gets.chomp
     puts
-    url = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{nome}?groupBy=UF"
-    resource = RestClient::Resource.new(url)
-    json = JSON.parse(resource.get, :symbolize_names => true)
+    uri = "#{nome}?groupBy=UF"
+    json = url_base(uri)
     # Formatador.display_table(json, [:localidade, :res])
     
     puts "\t Ranking para #{nome} por Estado e Frequencia"
@@ -54,9 +54,8 @@ class Processos
     print "\n \t Digite o nome para pesquisar: " 
     nome = $stdin.gets.chomp
     puts
-    url = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{nome}"
-    resource = RestClient::Resource.new(url)
-    json = JSON.parse(resource.get, :symbolize_names => true)
+    uri = "#{nome}"
+    json = url_base(uri)
     puts "\t Consultando Nome por Periodos"
     puts
     puts "\t Periodo:\tFrequêcia:"
@@ -76,9 +75,8 @@ class Processos
   end 
     
   def self.todas_decadas #menu 3
-    url = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking/?decada"
-    resource = RestClient::Resource.new(url)
-    json = JSON.parse(resource.get, :symbolize_names => true)
+    uri = "/ranking/?decada"
+    json = url_base(uri)
     puts "\t Ranking de Nomes em todas as Década"
     puts
     json[0][:res].each do |ranking|
@@ -91,9 +89,8 @@ class Processos
     print "\n \t Digite uma década para pesquisar: " 
     decada = gets.chomp
     puts
-    url = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking/?decada=#{decada}"
-    resource = RestClient::Resource.new(url)
-    json = JSON.parse(resource.get, :symbolize_names => true)
+    uri = "ranking/?decada=#{decada}"
+    json = url_base(uri)
     puts "\t Ranking de Nomes por Década"
     puts
     json[0][:res].each do |ranking|
@@ -124,9 +121,8 @@ class Processos
         end
       end
     puts
-    url = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{nome}?localidade=#{uf}"
-    resource = RestClient::Resource.new(url)
-    json = JSON.parse(resource.get, :symbolize_names => true)
+    uri = "#{nome}?localidade=#{uf}"
+    json = url_base(uri)
     puts "\t Consultando Nome por Estado nos Periodos"
     puts
       json[0][:res].each do |nome|
@@ -180,9 +176,8 @@ class Processos
     puts 
   
     if nomes.length == 1
-      url = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{nomes[0]}?localidade=#{id_municipio}"
-      resource = RestClient::Resource.new(url)
-      json = JSON.parse(resource.get, :symbolize_names => true)
+      uri = "#{nomes[0]}?localidade=#{id_municipio}"
+      json = url_base(uri)
       puts
       puts "\t Exibindo #{nomes[0]} no Municipio #{nome_cidade} nos Periodos"
         json[0][:res].each do |nome|
@@ -193,9 +188,8 @@ class Processos
       fim = nomes.length - 1
       puts "\t Consultando multiplus nomes no Municipio #{nome_cidade} nos Periodos"
       for i in 0..fim
-        url = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{nomes[i]}?localidade=#{id_municipio}"
-        resource = RestClient::Resource.new(url)
-        json = JSON.parse(resource.get, :symbolize_names => true)
+        uri = "#{nomes[i]}?localidade=#{id_municipio}"
+        json = url_base(uri)
         puts 
         puts "\t Exibindo #{nomes[i].capitalize} no Municipio #{nome_cidade} nos Periodos"
           json[0][:res].each do |nome|

@@ -1,14 +1,8 @@
 require 'rest-client'
 require 'json'
 
+
 class Sexos
-
-  def self.url_base(uri)
-    url = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{uri}"
-    resource = RestClient::Resource.new(url)
-    json = JSON.parse(resource.get, :symbolize_names => true)
-  end
-
 
   def self.sexo #menu 5
     puts "\n \t Escolha um Sexo para pesquisar" 
@@ -32,8 +26,7 @@ class Sexos
     sexo = gets.chomp
     puts
     uri = "#{nome}?sexo=#{sexo}"
-    resource = RestClient::Resource.new(url)
-    json = JSON.parse(resource.get, :symbolize_names => true)
+    json = url_base(uri)
     puts "\tConsultando #{nome} por Sexo nos Periodos"
     puts
     puts "\tPeriodo: \tFrequêcia:"

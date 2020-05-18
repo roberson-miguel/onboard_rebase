@@ -1,6 +1,13 @@
 require_relative 'processos.rb'
 require_relative 'sexos.rb'
 
+
+  def url_base(uri)
+    url = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{uri}"
+    resource = RestClient::Resource.new(url)
+    json = JSON.parse(resource.get, :symbolize_names => true)
+  end
+
   def display
     puts  "\t Escolha uma das opções: \n " 
     puts 
