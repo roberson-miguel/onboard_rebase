@@ -79,8 +79,7 @@ end
 def self.todos_sexos_local #menu 1
  
   system("clear")
- 
-  db = SQLite3::Database.new "test.db"
+  db = SQLite3::Database.new "estados.db"
   db.execute <<-SQL
     CREATE TABLE IF NOT EXISTS estados(
       id INT NOT NULL UNIQUE,
@@ -127,6 +126,9 @@ def self.todos_sexos_local #menu 1
   
   puts "\n \t Exibindo Ranking Sexo Masculino por Estado" 
   puts
+
+  system("clear")
+ 
   uri = "ranking/?sexo=M&localidade=#{uf}"
   json = url_base(uri)
   json[0][:res].each do |sexo|
@@ -145,19 +147,42 @@ def self.todos_sexos_local #menu 1
 end
 
 def self.nomes_cidade #menu 2
+
+  system("clear")
+  db = SQLite3::Database.new "municipios.db"
+  db.execute <<-SQL
+    CREATE TABLE IF NOT EXISTS municipios(
+      id INT NOT NULL UNIQUE,
+      nome VARCHAR(50) NOT NULL,
+      sigla VARCHAR(2) NOT NULL
+    );
+  SQL
+ 
+
   uri = "municipios"
-  json = url_base_local(uri)
+  url = "https://servicodados.ibge.gov.br/api/v1/localidades/#{uri}"
+  resource = RestClient::Resource.new(url)
+  json = JSON.parse(resource.get, :symbolize_names => true)
+
   print "\n \t Digite um ou mais nomes, separados por virgula, ex.: 'maria,joao' para pesquisar: " 
   nome = gets.chomp 
   puts "\n \t Digite o nome de uma Cidade"
   print "\t Exemplo, digite 'São Paulo' para pesquisar o(s) nome(s): #{nome} na Cidade de São Paulo: " 
     nome_cidade = gets.chomp
     id_municipio = nil
-    json.each do |municipio|
-      if municipio[:nome] == nome_cidade
-         id_municipio = municipio[:id]
+
+    if db.execute('SELECT * FROM municipios').empty?
+      json.each do |municipio|
+        if municipio[:nome] == nome_cidade
+          id_municipio = municipio[:id]
+        end
+        db.execute('INSERT INTO municipios (id, nome, sigla) 
+                VALUES (?, ?, ?)', ["#{municipio[:id]}", "#{municipio[:nome]}", "#{municipio[:sigla]}"]
+        )
       end
     end
+
+  
   puts
   nomes = nome.split(/,/) # => ["a", "b", "c"]
   puts 
