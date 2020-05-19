@@ -33,8 +33,27 @@ menu para o usuário escolher a consulta a ser realizada ou sair da plicação.
   # instale as GEM 
     `gem install rest-client`
     `gem install rspec`
+    `gem install sqlite3`
   # inicialize o rspec 
     `rspec --init`
+
+
+### Desafio 2
+
+Nesta etapa, queremos otimizar nossa aplicação. As UFs e as cidades do país raramente
+sofrem alterações, então não faz muito sentido consultar a API de localidades várias vezes
+para exibir o resultado, especialmente nas consultas 1 e 2 da etapa anterior.
+Nessa etapa você deve:
+
+1. Criar uma estrutura de conexão a um banco de dados SQLite em sua aplicação
+
+2. Ao iniciar sua aplicação pela primeira vez, você deve criar e popular tabelas para
+armazenar todas as UFs e todos os municípios, consultando a API de localidades.
+Lembre-se de armazenar somente os dados essenciais para o uso dentro da sua
+aplicação. A organização das tabelas fica a seu critério.
+
+3. Ao realizar as operações que demandam o uso de códigos de UFs e/ou cidades,
+utilizar os dados vindos do banco de dados ao invés da API de localidades.
 
 ### Excutando o projeto
 
@@ -42,5 +61,5 @@ menu para o usuário escolher a consulta a ser realizada ou sair da plicação.
   2. Clone o projeto na sua maquina 
   3. Dentro da pasta do projeto rode o comando `bin/setup`
   4. Execute o comando `bundle install` 
-  5. Para executar o programa use `ruby lib/desafio1.rb`
+  5. Para executar o programa use `ruby lib/desafio1.rb` ou `ruby lib/desafio2.rb`
   6. Siga as intruções na tela do programa

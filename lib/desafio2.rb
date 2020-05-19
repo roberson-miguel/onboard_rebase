@@ -14,11 +14,6 @@ def url_base(uri)
   json = JSON.parse(resource.get, :symbolize_names => true)
 end
 
-def url_base_local(uri)
-  url = "https://servicodados.ibge.gov.br/api/v1/localidades/#{uri}"
-  resource = RestClient::Resource.new(url)
-  json = JSON.parse(resource.get, :symbolize_names => true)
-end
 
 def display
   puts "\t \t Escolha uma das opções: \n " 
@@ -27,7 +22,6 @@ def display
   puts
   puts "\t \t 1 - \t Ranking dos nomes mais comuns em uma determinada Unidade Federativa (UF)\n" 
   puts "\t \t 2 - \t Ranking dos nomes mais comuns em uma determinada cidade\n"
-  puts "\t \t 3 - \t Frequência do uso de um nome ao longo dos anos \n"
   puts 
   puts "\t \tPARA FINALIZAR DIGITE: 'sair'" 
     puts 
@@ -44,8 +38,6 @@ def self.menu(escolha)
       return todos_sexos_local
     elsif escolha == "2" then
       return nomes_cidade
-    elsif escolha == "3" then
-      return nome_decada
     elsif escolha == "sair" then
       return sair
     else
@@ -158,9 +150,7 @@ def self.nomes_cidade #menu 2
     );
   SQL
  
-
-  uri = "municipios"
-  url = "https://servicodados.ibge.gov.br/api/v1/localidades/#{uri}"
+  url = "https://servicodados.ibge.gov.br/api/v1/localidades/municipios"
   resource = RestClient::Resource.new(url)
   json = JSON.parse(resource.get, :symbolize_names => true)
 
@@ -202,26 +192,5 @@ def self.nomes_cidade #menu 2
 
 end 
 
-def self.nome_decada #menu 3
-  print "\n \t Digite o nome para pesquisar: " 
-  nome = $stdin.gets.chomp
-  puts
-  uri = "#{nome}"
-  json = url_base(uri)
-  puts "\t Consultando Nome por Periodos"
-  puts
-  puts "\t Periodo:\tFrequêcia:"
-  linha = 0
-  json.to_s.gsub("[","")
-  json[0][:res].each do |ranking|
-    if linha == 0
-      puts "\t Até  #{ranking[:periodo]}\t\t#{ranking[:frequencia]}".tr('[', '')
-      linha = linha + 1
-    else
-    puts "\t #{ranking[:periodo]}\t\t#{ranking[:frequencia]}".tr('[', '')
-    end
-  end 
-  puts
-end 
 puts
 display
