@@ -1,11 +1,13 @@
 require 'rest-client'
 require 'json'
 require "sqlite3"
+require 'csv'
 
 system("clear")
 puts
 puts
-puts "\t \t Busca ao site do IBGE com busca das cidades e UFs em Banco de Dados SQLite local\n"
+puts "\t \t Busca ao site do IBGE com busca das cidades e UFs em Banco de Dados SQLite e\n"
+puts "\t \t exibindo o percentual de população acessando arquivo CSV na base local"  
 puts
 
 def url_base(uri)
@@ -14,14 +16,20 @@ def url_base(uri)
   json = JSON.parse(resource.get, :symbolize_names => true)
 end
 
+def url_base_local(uri)
+  url = "https://servicodados.ibge.gov.br/api/v1/localidades/#{uri}"
+  resource = RestClient::Resource.new(url)
+  json = JSON.parse(resource.get, :symbolize_names => true)
+end
 
 def display
   puts "\t \t Escolha uma das opções: \n " 
   puts 
-  puts "\t \t Atalhos cosultar os itens do Desafio 2: "
+  puts "\t \t Atalhos cosultar os itens do Desafio 3: "
   puts
   puts "\t \t 1 - \t Ranking dos nomes mais comuns em uma determinada Unidade Federativa (UF)\n" 
   puts "\t \t 2 - \t Ranking dos nomes mais comuns em uma determinada cidade\n"
+  puts "\t \t 3 - \t Frequência do uso de um nome ao longo dos anos \n"
   puts 
   puts "\t \tPARA FINALIZAR DIGITE: 'sair'" 
     puts 
@@ -38,6 +46,8 @@ def self.menu(escolha)
       return todos_sexos_local
     elsif escolha == "2" then
       return nomes_cidade
+    elsif escolha == "3" then
+      return nome_decada
     elsif escolha == "sair" then
       return sair
     else
@@ -45,6 +55,29 @@ def self.menu(escolha)
     end
   end
 end
+
+def self.opcao_invalida
+  puts
+  puts
+  puts "\t \t Escolha uma das opções..."
+  puts
+  puts
+  sleep 1.9
+  return display
+end
+
+def self.sair 
+  puts 
+  puts                            
+  puts "\t \t Saindo...Obrigado..."          
+  puts               
+  puts                                    
+  sleep 1.9
+end
+
+def create_estados
+end
+
 
 def self.opcao_invalida
   puts
@@ -139,7 +172,6 @@ def self.todos_sexos_local #menu 1
 end
 
 def self.nomes_cidade #menu 2
-
   system("clear")
   db = SQLite3::Database.new "municipios.db"
   db.execute <<-SQL
@@ -161,22 +193,31 @@ def self.nomes_cidade #menu 2
     nome_cidade = gets.chomp
     id_municipio = nil
 
-    if db.execute('SELECT * FROM municipios').empty?
-      json.each do |municipio|
-        if municipio[:nome] == nome_cidade
-          id_municipio = municipio[:id]
-        end
-        db.execute('INSERT INTO municipios (id, nome, sigla) 
-                VALUES (?, ?, ?)', ["#{municipio[:id]}", "#{municipio[:nome]}", "#{municipio[:sigla]}"]
-        )
+  if db.execute('SELECT * FROM municipios').empty?
+    json.each do |municipio|
+      if municipio[:nome] == nome_cidade
+        id_municipio = municipio[:id]
       end
+      db.execute('INSERT INTO municipios (id, nome, sigla) 
+              VALUES (?, ?, ?)', ["#{municipio[:id]}", "#{municipio[:nome]}", "#{municipio[:sigla]}"]
+      )
     end
+  end
 
   
   puts
   nomes = nome.split(/,/) # => ["a", "b", "c"]
-  puts 
  
+  csv = CSV.parse(File.read('./db/populacao_2019.csv'), liberal_parsing: true, headers: true)
+  fim_csv = csv.length - 1 
+  for i in 0..fim_csv
+    if csv[i]["Cód."] == "#{id_municipio}"
+      residentes = csv[i]["População Residente - 2019"]
+    else
+      next
+    end
+  end
+  
   fim = nomes.length - 1
   puts "\t Consultando multiplus nomes no Municipio #{nome_cidade} nos Periodos"
   for i in 0..fim
@@ -185,11 +226,37 @@ def self.nomes_cidade #menu 2
     puts 
     puts "\t Exibindo #{nomes[i].capitalize} no Municipio #{nome_cidade} nos Periodos"
       json[0][:res].each do |nome|
-        puts "\t Periodo: #{nome[:periodo]} - \t Frequência: #{nome[:frequencia]}".tr('[', '')
+        populacao = (nome[:frequencia] / residentes ) * 100
+        puts "\t Periodo: #{nome[:periodo]} - \t \t População: #{populacao} - \t Frequência: #{nome[:frequencia]}".tr('[', '') 
       end
     puts
   end
+  
 
+end 
+
+
+def self.nome_decada #menu 3
+  print "\n \t Digite o nome para pesquisar: " 
+  nome = $stdin.gets.chomp
+  puts
+  uri = "#{nome}"
+  json = url_base(uri)
+  puts "\t Consultando Nome por Periodos"
+  puts
+  puts "\t Periodo:\tFrequêcia:"
+  linha = 0
+  json.to_s.gsub("[","")
+
+  json[0][:res].each do |ranking|
+    if linha == 0
+      puts "\t Até  #{ranking[:periodo]}\t\t#{ranking[:frequencia]}".tr('[', '')
+      linha = linha + 1
+    else
+      puts "\t #{ranking[:periodo]}\t\t#{ranking[:frequencia]}".tr('[', '')
+    end
+  end 
+  puts
 end 
 
 puts

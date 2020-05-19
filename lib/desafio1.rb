@@ -28,7 +28,7 @@ puts
   def display
     puts "\t \t Escolha uma das opções: \n " 
     puts 
-    puts "\t \t Atalhos cosultar os itens do Desafio1: "
+    puts "\t \t Atalhos cosultar os itens do Desafio 1: "
     puts
     puts "\t \t 12 - \t Ranking dos nomes mais comuns em uma determinada Unidade Federativa (UF)\n" 
     puts "\t \t 14 - \t Ranking dos nomes mais comuns em uma determinada cidade\n"
