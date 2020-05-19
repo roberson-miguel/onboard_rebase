@@ -73,16 +73,33 @@ def self.sair
   sleep 1.9
 end
 
+def create_estados
+end
+
 def self.todos_sexos_local #menu 1
  
-
   system("clear")
  
-  db = SQLite3::Database.new "db/estados.db"
-  Database.create_city_db(db)
-  db.execute( "select * from cities where nome='#{nome}'" ) do |row|
-    return row
+  db = SQLite3::Database.new "test.db"
+  db.execute <<-SQL
+    CREATE TABLE IF NOT EXISTS estados(
+      id INT NOT NULL UNIQUE,
+      nome VARCHAR(50) NOT NULL,
+      sigla VARCHAR(2) NOT NULL
+    );
+  SQL
+
+  url = 'https://servicodados.ibge.gov.br/api/v1/localidades/estados'
+  resource = RestClient::Resource.new(url)
+  json = JSON.parse(resource.get, :symbolize_names => true)
+  if db.execute('SELECT * FROM estados').empty?
+    json.each do |uf|
+      db.execute('INSERT INTO estados (id, nome, sigla) 
+              VALUES (?, ?, ?)', ["#{uf[:id]}", "#{uf[:nome]}", "#{uf[:sigla]}"]
+      )
+    end
   end
+
   puts "\n \t \t Siglas dos Estados"
   puts
   json.each do |localidade|
