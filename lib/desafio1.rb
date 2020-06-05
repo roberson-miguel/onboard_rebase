@@ -1,5 +1,4 @@
 require_relative 'processos.rb'
-require_relative 'sexos.rb'
 
 system("clear")
 puts
@@ -26,6 +25,7 @@ puts
   end
 
   def display
+    system('clear')
     puts "\t \t Escolha uma das opções: \n " 
     puts 
     puts

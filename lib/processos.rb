@@ -42,6 +42,13 @@ class Processos
       end
     end 
     puts
+    puts "Digite 'sair' para sair ou Tecle 'ENTER' para continuar"
+    cont = $stdin.gets.chomp
+    if cont == 'sair'
+      return sair
+    else
+      return display
+    end
   end 
     
   def self.todos_sexos_local #menu 2
@@ -90,6 +97,13 @@ class Processos
       puts "\t #{sexo[:ranking]}.#{sexo[:nome]} \tFrequência: #{sexo[:frequencia]}"
     end
     puts
+    puts "Digite 'sair' para sair ou Tecle 'ENTER' para continuar"
+    cont = $stdin.gets.chomp
+    if cont == 'sair'
+      return sair
+    else
+      return display
+    end
   end
     
   def self.nomes_cidade #menu 3
@@ -122,7 +136,14 @@ class Processos
         end
       puts
     end
-  
+    puts
+    puts "Digite 'sair' para sair ou Tecle 'ENTER' para continuar"
+    cont = $stdin.gets.chomp
+    if cont == 'sair'
+      return sair
+    else
+      return display
+    end
   end 
 
 end
