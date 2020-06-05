@@ -210,12 +210,9 @@ def self.nomes_cidade #menu 2
  
   csv = CSV.parse(File.read('./db/populacao_2019.csv'), liberal_parsing: true, headers: true)
   fim_csv = csv.length - 1 
-  for i in 0..fim_csv
-    if csv[i]["Cód."] == "#{id_municipio}"
-      residentes = csv[i]["População Residente - 2019"]
-    else
-      next
-    end
+  until csv[i]["Cód."] == "#{id_municipio}" do
+      @residentes = csv[i]["População Residente - 2019"]
+      break
   end
   
   fim = nomes.length - 1
@@ -226,7 +223,7 @@ def self.nomes_cidade #menu 2
     puts 
     puts "\t Exibindo #{nomes[i].capitalize} no Municipio #{nome_cidade} nos Periodos"
       json[0][:res].each do |nome|
-        populacao = (nome[:frequencia] / residentes ) * 100
+        populacao = (nome[:frequencia] / @residentes.to_i ) * 100
         puts "\t Periodo: #{nome[:periodo]} - \t \t População: #{populacao} - \t Frequência: #{nome[:frequencia]}".tr('[', '') 
       end
     puts
