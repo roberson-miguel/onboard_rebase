@@ -1,16 +1,6 @@
-require_relative 'processos.rb'
-
-system("clear")
-puts
-puts
-puts "\t \t Esse programa traz um ranking iterativo dos nomes a partir dos dados mais recentes do CENSO,
-            o IBGE lançou essa aplicação Web que fez muito sucesso em 2016. Você pode consultar os nomes mais 
-            populares que pode ser organizado em décadas e/ou estados do país.
-
-            Além disso você pode buscar pelo seu nome e entender quão frequente é esse nome em um estado ou
-            uma cidade do país. Algumas informações podem ser separadas ainda pela década ou pelo
-            sexo atribuído ao nome.\n"
-puts
+require 'rest-client'
+require 'json'
+require "sqlite3"
 
   def url_base(uri)
     url = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{uri}"
@@ -42,7 +32,8 @@ puts
     return menu(escolha)
   end
 
-  def menu(escolha)
+
+  def self.menu(escolha)
     while true do
       if escolha == "1" then
         return Processos.nome_decada 
