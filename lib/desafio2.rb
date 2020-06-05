@@ -17,9 +17,8 @@ end
 
 def display
   system('clear')
-  puts "\t \t Escolha uma das opções: \n " 
+  puts "\t \t Escolha uma das opções do Desafio 2: \n " 
   puts 
-  puts "\t \t Atalhos cosultar os itens do Desafio 2: "
   puts
   puts "\t \t 1 - \t Ranking dos nomes mais comuns em uma determinada Unidade Federativa (UF)\n" 
   puts "\t \t 2 - \t Ranking dos nomes mais comuns em uma determinada cidade\n"
