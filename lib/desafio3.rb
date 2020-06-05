@@ -23,6 +23,7 @@ def url_base_local(uri)
 end
 
 def display
+  system('clear')
   puts "\t \t Escolha uma das opções: \n " 
   puts 
   puts "\t \t Atalhos cosultar os itens do Desafio 3: "
@@ -169,6 +170,13 @@ def self.todos_sexos_local #menu 1
     puts "\t #{sexo[:ranking]}.#{sexo[:nome]} \tFrequência: #{sexo[:frequencia]}"
   end
   puts
+  puts "Digite 'sair' para sair ou Tecle 'ENTER' para continuar"
+  cont = $stdin.gets.chomp
+  if cont == 'sair'
+    return sair
+  else
+    return display
+  end
 end
 
 def self.nomes_cidade #menu 2
@@ -228,8 +236,14 @@ def self.nomes_cidade #menu 2
       end
     puts
   end
-  
-
+  puts
+  puts "Digite 'sair' para sair ou Tecle 'ENTER' para continuar"
+  cont = $stdin.gets.chomp
+  if cont == 'sair'
+    return sair
+  else
+    return display
+  end
 end 
 
 
@@ -254,6 +268,13 @@ def self.nome_decada #menu 3
     end
   end 
   puts
+  puts "Digite 'sair' para sair ou Tecle 'ENTER' para continuar"
+  cont = $stdin.gets.chomp
+  if cont == 'sair'
+    return sair
+  else
+    return display
+  end
 end 
 
 puts
