@@ -22,7 +22,9 @@ class Processos
     sleep 1.9
   end
   
-  def self.nome_decada #menu 1
+
+
+  def self.nome_decada #menu 2
     print "\n \t Digite o nome para pesquisar: " 
     nome = $stdin.gets.chomp
     puts
@@ -44,7 +46,32 @@ class Processos
     puts
   end 
     
-  def self.todos_sexos_local #menu 2
+  def self.todas_decadas #menu 3
+    uri = "/ranking/?decada"
+    json = url_base(uri)
+    puts "\t Ranking de Nomes em todas as Década"
+    puts
+    json[0][:res].each do |ranking|
+      puts "\t #{ranking[:ranking]}. #{ranking[:nome]} \t - Frequência: #{ranking[:frequencia]}"
+    end
+    puts
+  end
+
+  def self.decada #menu 4
+    print "\n \t Digite uma década para pesquisar: " 
+    decada = gets.chomp
+    puts
+    uri = "ranking/?decada=#{decada}"
+    json = url_base(uri)
+    puts "\t Ranking de Nomes por Década"
+    puts
+    json[0][:res].each do |ranking|
+      puts "\t #{ranking[:ranking]}.#{ranking[:nome]}\t Frequência: #{ranking[:frequencia]}"
+    end
+    puts
+  end
+ 
+  def self.nome_local #menu 7
     system("clear")
     uri = "estados"
     json = url_base_local(uri)
@@ -53,46 +80,52 @@ class Processos
     json.each do |localidade|
     puts "\t \t #{localidade[:sigla]} - #{localidade[:nome]} "
     end
-
+    print "\n \t Digite um nome para pesquisar: " 
+    nome = gets.chomp 
     puts "\n \t Digite uma sigla do Estado para pesquisar - Veja Tabela acima."
-    print "\t Exemplo, digite 'SP' para Ranking por Sexo no Estado de São Paulo: " 
-    sigla = gets.chomp
-    uf = nil
-    json.each do |localidade|
-      if localidade[:sigla] == sigla
-        uf = localidade[:id]
+    print "\t Exemplo, digite 'SP' para pesquisar o nome: #{nome} no Estado de São Paulo: " 
+      sigla = gets.chomp
+      uf = nil
+      json.each do |localidade|
+        if localidade[:sigla] == sigla
+          uf = localidade[:id]
+        end
       end
-    end
-
-    puts "\n \t Exibindo Ranking Geral para o Estado de: #{uf}" 
     puts
-    uri = "ranking/?localidade=#{uf}"
+    uri = "#{nome}?localidade=#{uf}"
     json = url_base(uri)
-    json[0][:res].each do |sexo|
-      puts "\t #{sexo[:ranking]}.#{sexo[:nome]} \tFrequência: #{sexo[:frequencia]}"
-    end
+    puts "\t Consultando Nome por Estado nos Periodos"
     puts
-    
-    puts "\n \t Exibindo Ranking Sexo Masculino por Estado" 
-    puts
-    uri = "ranking/?sexo=M&localidade=#{uf}"
-    json = url_base(uri)
-    json[0][:res].each do |sexo|
-      puts "\t #{sexo[:ranking]}.#{sexo[:nome]} \tFrequência: #{sexo[:frequencia]}"
-    end
-    puts
-
-    puts "\n \t Exibindo Ranking Sexo Feminino por Estado" 
-    puts
-    uri = "ranking/?sexo=F&localidade=#{uf}"
-    json = url_base(uri)
-    json[0][:res].each do |sexo|
-      puts "\t #{sexo[:ranking]}.#{sexo[:nome]} \tFrequência: #{sexo[:frequencia]}"
-    end
+      json[0][:res].each do |nome|
+        puts "\t Periodo: #{nome[:periodo]} - \t Frequência: #{nome[:frequencia]}".tr('[', '')
+      end
     puts
   end
-    
-  def self.nomes_cidade #menu 3
+
+  def self.local #menu 8
+          uri = "estados"
+          json = url_base_local(uri)
+          puts "\n \n \t \t Consultando siglas das localidades"
+          puts
+          json.each do |localidade|
+          puts "\t \t #{localidade[:sigla]} - #{localidade[:nome]} "
+          end
+          puts
+  end 
+
+
+  def self.cidade #menu 13
+          uri = "municipios"
+          json = url_base_local(uri)
+          puts "\n \t \t Consultar Ids e Nomes das Cidades"
+          puts
+          json.each do |municipio|
+          puts "\t \t #{municipio[:id]} - #{municipio[:nome]} "
+          end
+          puts
+  end
+
+  def self.nomes_cidade #menu 14
     uri = "municipios"
     json = url_base_local(uri)
     print "\n \t Digite um ou mais nomes, separados por virgula, ex.: 'maria,joao' para pesquisar: " 
