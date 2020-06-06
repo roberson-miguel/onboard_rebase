@@ -72,4 +72,5 @@ aproximadamente 3,8% da população da cidade.
      a. Para o desafio 1 `ruby lib/desafio1.rb` 
      b. Para o desafio 2 `ruby lib/desafio2.rb`
      c. Para o desafio 3 `ruby lib/desafio3.rb`
+     d. Menu com todos os desafios `ruby lib/desafioapp.rb`
   5. Siga as intruções na tela de cada programa
