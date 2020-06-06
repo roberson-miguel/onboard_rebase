@@ -1,21 +1,46 @@
 require 'rest-client'
 require 'json'
 require_relative 'display.rb'
+require_relative 'processos.rb'
 
 class Desafioapp
+  attr_accessor :display, :desafio
 
-  def app
-    Display.new.app
+  def initialize
+    self.desafio = desafio
+    self.display = display
   end
 
-  def menu_app(desafio)
+  def app
+    display = Display.new
+    display.bemvindos
+    display.app
+    menu_app
+  end
+
+  def app_desafio1
+    app_desafio1 = Display.new
+    app_desafio1.menu_desafio1
+    menu_app
+    app_desafio1.menu
+  end
+
+  def app_desafio2
+    app_desafio2 = Display.new
+    app_desafio2.menu_desafio2
+    menu_app
+    app_desafio2.menu
+  end
+  
+  def menu_app
+    desafio = $stdin.gets.chomp.to_s
     while true do
       if desafio == "1" then
-        system('ruby desafio1.rb') 
+        app_desafio1
       elsif desafio == "2" then
-        system('ruby desafio2.rb') 
+        app_desafio2
       elsif desafio == "3" then
-        system('ruby desafio3.rb') 
+        app_desafio3
       elsif desafio == "sair" then
         return self.sair
       else
@@ -45,4 +70,5 @@ class Desafioapp
 
 end
 
-Desafioapp.new.app
+desafio = Desafioapp.new.app
+

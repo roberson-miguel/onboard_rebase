@@ -1,6 +1,6 @@
 class Display
   
-  def topo
+  def bemvindos
     system("clear")
     puts
     puts "\t \t Esse programa traz um ranking iterativo dos nomes a partir dos dados mais recentes do CENSO.\n
@@ -13,7 +13,6 @@ class Display
   end
 
   def app 
-    topo
     puts
     puts "\t \t Escolha um dos desafios: \n " 
     puts 
@@ -27,8 +26,35 @@ class Display
     puts 
     puts
     print "\t \t Escolha um dos desafio: " 
-    desafio = $stdin.gets.chomp.to_s
-    Desafioapp.new.menu_app(desafio)
   end
 
+  def menu_desafio1
+    system('clear')
+    puts "\t \t Escolha uma das opções do Desafio 1: \n " 
+    puts 
+    puts
+    puts "\t \t 1 - \t Ranking dos nomes mais comuns em uma determinada Unidade Federativa (UF)\n" 
+    puts "\t \t 2 - \t Ranking dos nomes mais comuns em uma determinada cidade\n"
+    puts "\t \t 3 - \t Frequência do uso de um nome ao longo dos anos \n"
+    puts 
+    puts 
+    puts "\t \tPARA FINALIZAR DIGITE: 'sair'" 
+    puts 
+    puts
+    print "\t Digite sua escolha: " 
+  end
+
+  def menu_desafio2
+    system('clear')
+    puts "\t \t Escolha uma das opções do Desafio 2: \n " 
+    puts 
+    puts
+    puts "\t \t 1 - \t Ranking dos nomes mais comuns em uma determinada Unidade Federativa (UF)\n" 
+    puts "\t \t 2 - \t Ranking dos nomes mais comuns em uma determinada cidade\n"
+    puts 
+    puts "\t \tPARA FINALIZAR DIGITE: 'sair'" 
+      puts 
+      puts
+      print "\t Digite sua escolha: " 
+  end
 end
