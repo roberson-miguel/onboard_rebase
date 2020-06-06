@@ -1,15 +1,13 @@
 require 'rest-client'
 require 'json'
-require_relative 'display.rb'
-require_relative 'processos.rb'
+require "sqlite3"
+require_relative 'views/display.rb'
+require_relative 'controllers/desafio1_controller.rb'
+require_relative 'controllers/desafio2_controller.rb'
+require_relative 'desafio1.rb'
+require_relative 'desafio2.rb'
 
 class Desafioapp
-  attr_accessor :display, :desafio
-
-  def initialize
-    self.desafio = desafio
-    self.display = display
-  end
 
   def app
     display = Display.new
@@ -17,36 +15,34 @@ class Desafioapp
     display.app
     menu_app
   end
-
-  def app_desafio1
-    app_desafio1 = Display.new
-    app_desafio1.menu_desafio1
-    menu_app
-    app_desafio1.menu
-  end
-
-  def app_desafio2
-    app_desafio2 = Display.new
-    app_desafio2.menu_desafio2
-    menu_app
-    app_desafio2.menu
-  end
   
   def menu_app
     desafio = $stdin.gets.chomp.to_s
     while true do
       if desafio == "1" then
-        app_desafio1
+        return app_desafio1
       elsif desafio == "2" then
-        app_desafio2
+        return app_desafio2
       elsif desafio == "3" then
-        app_desafio3
+        return app_desafio3
       elsif desafio == "sair" then
         return self.sair
       else
         return self.opcao_invalida
       end
     end
+  end
+
+  def app_desafio1
+    menu1 = Display.new.menu_desafio1
+    desafio1 = Desafio1.new
+    desafio1.menu
+  end
+
+  def app_desafio2
+    menu2 = Display.new.menu_desafio2
+    desafio2 = Desafio2.new
+    desafio2.menu
   end
 
   def self.opcao_invalida

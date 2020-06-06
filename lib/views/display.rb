@@ -30,6 +30,8 @@ class Display
 
   def menu_desafio1
     system('clear')
+    puts "\t \t Busca ao site do IBGE via terminal acessando API em tempo real.\n" 
+    puts 
     puts "\t \t Escolha uma das opções do Desafio 1: \n " 
     puts 
     puts
@@ -45,7 +47,9 @@ class Display
   end
 
   def menu_desafio2
-    system('clear')
+    system("clear")
+    puts "\t \t Busca ao site do IBGE com busca das cidades e UFs em Banco de Dados SQLite local\n"
+    puts
     puts "\t \t Escolha uma das opções do Desafio 2: \n " 
     puts 
     puts

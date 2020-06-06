@@ -1,8 +1,16 @@
-require 'rest-client'
-require 'json'
+class Desafio1_controller
 
+  def self.url_base(uri)
+    url = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{uri}"
+    resource = RestClient::Resource.new(url)
+    json = JSON.parse(resource.get, :symbolize_names => true)
+  end
 
-class Processos
+  def self.url_base_local(uri)
+    url = "https://servicodados.ibge.gov.br/api/v1/localidades/#{uri}"
+    resource = RestClient::Resource.new(url)
+    json = JSON.parse(resource.get, :symbolize_names => true)
+  end
 
   def self.opcao_invalida
     puts
@@ -11,7 +19,7 @@ class Processos
     puts
     puts
     sleep 1.9
-    return display
+    return Display.new.app
   end
 
   def self.sair 
@@ -48,7 +56,7 @@ class Processos
     if cont == 'sair'
       return sair
     else
-      return display
+      return Display.new.app
     end
   end 
     
