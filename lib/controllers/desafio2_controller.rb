@@ -3,8 +3,6 @@ class Desafio2_controller
   def self.url_base(uri)
     url = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{uri}"
     resource_json(url)
-    #resource = RestClient::Resource.new(url)
-    #json = JSON.parse(resource.get, :symbolize_names => true)
   end
 
   def self.resource_json(url)
@@ -12,9 +10,15 @@ class Desafio2_controller
     json = JSON.parse(resource.get, :symbolize_names => true)
   end
 
+  def self.json_sexo(uri)
+    json = url_base(uri)
+    json[0][:res].each do |sexo|
+      puts "\t #{sexo[:ranking]}.#{sexo[:nome]} \tFrequência: #{sexo[:frequencia]}"
+    end
+    puts
+  end
 
   def self.todos_sexos_local #menu 1
- 
     system("clear")
     db = SQLite3::Database.new "estados.db"
     db.execute <<-SQL
@@ -26,8 +30,7 @@ class Desafio2_controller
     SQL
   
     url = 'https://servicodados.ibge.gov.br/api/v1/localidades/estados'
-    resource = RestClient::Resource.new(url)
-    json = JSON.parse(resource.get, :symbolize_names => true)
+    json = resource_json(url)
     if db.execute('SELECT * FROM estados').empty?
       json.each do |uf|
         db.execute('INSERT INTO estados (id, nome, sigla) 
@@ -69,14 +72,6 @@ class Desafio2_controller
     json_sexo(uri)
 
   end
-
-  def self.json_sexo(uri)
-    json = url_base(uri)
-    json[0][:res].each do |sexo|
-      puts "\t #{sexo[:ranking]}.#{sexo[:nome]} \tFrequência: #{sexo[:frequencia]}"
-    end
-    puts
-  end
   
   def self.nomes_cidade #menu 2
   
@@ -91,9 +86,8 @@ class Desafio2_controller
     SQL
    
     url = "https://servicodados.ibge.gov.br/api/v1/localidades/municipios"
-    resource = RestClient::Resource.new(url)
-    json = JSON.parse(resource.get, :symbolize_names => true)
-  
+    json = resource_json(url)
+    puts "\n \t Consulta por um ou mais nomes mais em uma determinada cidade"
     print "\n \t Digite um ou mais nomes, separados por virgula, ex.: 'maria,joao' para pesquisar: " 
     nome = gets.chomp 
     puts "\n \t Digite o nome de uma Cidade"
@@ -128,8 +122,6 @@ class Desafio2_controller
         end
       puts
     end
-  
-  
   end 
 
 end
