@@ -7,9 +7,11 @@ class Desafio2
       elsif escolha == "2" then
         return Desafio2_controller.nomes_cidade
       elsif escolha == "sair" then
-        return Desafio2_controller.sair
+        Display.new.sair
+        break
       else
-        return Desafio2_controller.opcao_invalida
+        Display.new.opcao_invalida
+        return Desafioapp.new.app_desafio2
       end
     end
   end

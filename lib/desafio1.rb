@@ -10,9 +10,11 @@ class Desafio1
       elsif escolha == "3" then
         return Desafio1_controller.nomes_cidade
       elsif escolha == "sair" then
-        return Desafio1_controller.sair
+        Display.new.sair
+        break
       else
-        return Desafio1_controller.opcao_invalida
+        Display.new.opcao_invalida
+        return Desafioapp.new.app_desafio1
       end
     end
   end
