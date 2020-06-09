@@ -45,7 +45,7 @@ class Desafioapp
     desafio2.menu
   end
 
-  def self.opcao_invalida
+  def opcao_invalida
     puts
     puts
     puts "\t \t Escolha uma das opções..."
@@ -55,7 +55,7 @@ class Desafioapp
     return app
   end
 
-  def self.sair 
+  def sair 
     puts 
     puts                            
     puts "\t \t Saindo...Obrigado..."          
