@@ -33,13 +33,6 @@ class Desafio1_controller
       end
     end 
     puts
-    puts "Digite 'sair' para sair ou Tecle 'ENTER' para continuar"
-    cont = $stdin.gets.chomp
-    if cont == 'sair'
-      Display.new.sair
-    else
-      return Desafioapp.new.app_desafio1
-    end
   end 
     
   def self.todos_sexos_local #menu 2
@@ -65,36 +58,26 @@ class Desafio1_controller
     puts "\n \t Exibindo Ranking Geral para o Estado de: #{uf}" 
     puts
     uri = "ranking/?localidade=#{uf}"
-    json = url_base(uri)
-    json[0][:res].each do |sexo|
-      puts "\t #{sexo[:ranking]}.#{sexo[:nome]} \tFrequência: #{sexo[:frequencia]}"
-    end
-    puts
-    
+    json_sexo(uri)
+      
     puts "\n \t Exibindo Ranking Sexo Masculino por Estado" 
     puts
     uri = "ranking/?sexo=M&localidade=#{uf}"
-    json = url_base(uri)
-    json[0][:res].each do |sexo|
-      puts "\t #{sexo[:ranking]}.#{sexo[:nome]} \tFrequência: #{sexo[:frequencia]}"
-    end
-    puts
+    json_sexo(uri)
 
     puts "\n \t Exibindo Ranking Sexo Feminino por Estado" 
     puts
     uri = "ranking/?sexo=F&localidade=#{uf}"
+    json_sexo(uri)
+  
+  end
+
+  def self.json_sexo(uri)
     json = url_base(uri)
     json[0][:res].each do |sexo|
       puts "\t #{sexo[:ranking]}.#{sexo[:nome]} \tFrequência: #{sexo[:frequencia]}"
     end
     puts
-    puts "Digite 'sair' para sair ou Tecle 'ENTER' para continuar"
-    cont = $stdin.gets.chomp
-    if cont == 'sair'
-      Display.new.sair
-    else
-      return Desafioapp.new.app_desafio1
-    end
   end
     
   def self.nomes_cidade #menu 3
@@ -112,7 +95,7 @@ class Desafio1_controller
         end
       end
     puts
-    nomes = nome.split(/,/) # => ["a", "b", "c"]
+    nomes = nome.split(/,/) 
     puts 
    
     fim = nomes.length - 1
@@ -126,14 +109,6 @@ class Desafio1_controller
           puts "\t Periodo: #{nome[:periodo]} - \t Frequência: #{nome[:frequencia]}".tr('[', '')
         end
       puts
-    end
-    puts
-    puts "Digite 'sair' para sair ou Tecle 'ENTER' para continuar"
-    cont = $stdin.gets.chomp
-    if cont == 'sair'
-      Display.new.sair
-    else
-      return Desafioapp.new.app_desafio1
     end
   end 
 

@@ -57,13 +57,17 @@ class Display
     puts "\t \t 2 - \t Ranking dos nomes mais comuns em uma determinada cidade\n"
     puts 
     puts "\t \tPARA FINALIZAR DIGITE: 'sair'" 
-      puts 
-      puts
-      print "\t Digite sua escolha: " 
+    puts 
+    puts
+    print "\t Digite sua escolha: " 
+  end
+
+  def continuar
+    puts "Digite 'sair' para Confirmar ou Tecle 'ENTER' para continuar"
   end
 
   def opcao_invalida
-    puts
+    puts "\t \t Opção inválida."
     puts
     puts "\t \t Escolha uma das opções..."
     puts
@@ -74,7 +78,7 @@ class Display
   def sair 
     puts 
     puts                            
-    puts "\t \t Saindo...Obrigado..."          
+    puts "\t \t Saindo... Obrigado."          
     puts               
     puts                                    
     sleep 1.9

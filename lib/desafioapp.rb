@@ -36,15 +36,27 @@ class Desafioapp
   end
 
   def app_desafio1
-    menu1 = Display.new.menu_desafio1
-    desafio1 = Desafio1.new
-    desafio1.menu
+    Display.new.menu_desafio1
+    Desafio1.new.menu
+    Display.new.continuar
+    continua = $stdin.gets.chomp
+    if continua == 'sair'
+      Display.new.sair
+    else
+      return Desafioapp.new.app_desafio1
+    end
   end
 
   def app_desafio2
-    menu2 = Display.new.menu_desafio2
-    desafio2 = Desafio2.new
-    desafio2.menu
+    Display.new.menu_desafio2
+    Desafio2.new.menu
+    Display.new.continuar
+    continua = $stdin.gets.chomp
+    if continua == 'sair'
+      Display.new.sair
+    else
+      return Desafioapp.new.app_desafio2
+    end
   end
 
 end

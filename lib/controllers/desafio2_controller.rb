@@ -2,6 +2,12 @@ class Desafio2_controller
 
   def self.url_base(uri)
     url = "https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{uri}"
+    resource_json(url)
+    #resource = RestClient::Resource.new(url)
+    #json = JSON.parse(resource.get, :symbolize_names => true)
+  end
+
+  def self.resource_json(url)
     resource = RestClient::Resource.new(url)
     json = JSON.parse(resource.get, :symbolize_names => true)
   end
@@ -49,40 +55,27 @@ class Desafio2_controller
     puts "\n \t Exibindo Ranking Geral para o Estado de: #{uf}" 
     puts
     uri = "ranking/?localidade=#{uf}"
-    json = url_base(uri)
-    json[0][:res].each do |sexo|
-      puts "\t #{sexo[:ranking]}.#{sexo[:nome]} \tFrequência: #{sexo[:frequencia]}"
-    end
-    puts
+    json_sexo(uri)
     
     puts "\n \t Exibindo Ranking Sexo Masculino por Estado" 
     puts
-  
-    system("clear")
    
     uri = "ranking/?sexo=M&localidade=#{uf}"
-    json = url_base(uri)
-    json[0][:res].each do |sexo|
-      puts "\t #{sexo[:ranking]}.#{sexo[:nome]} \tFrequência: #{sexo[:frequencia]}"
-    end
-    puts
+    json_sexo(uri)
   
     puts "\n \t Exibindo Ranking Sexo Feminino por Estado" 
     puts
     uri = "ranking/?sexo=F&localidade=#{uf}"
+    json_sexo(uri)
+
+  end
+
+  def self.json_sexo(uri)
     json = url_base(uri)
     json[0][:res].each do |sexo|
       puts "\t #{sexo[:ranking]}.#{sexo[:nome]} \tFrequência: #{sexo[:frequencia]}"
     end
     puts
-    puts
-      puts "Digite 'sair' para sair ou Tecle 'ENTER' para continuar"
-      cont = $stdin.gets.chomp
-      if cont == 'sair'
-        Display.new.sair
-      else
-        return Desafioapp.new.app_desafio2
-      end
   end
   
   def self.nomes_cidade #menu 2
@@ -118,10 +111,9 @@ class Desafio2_controller
           )
         end
       end
-  
     
     puts
-    nomes = nome.split(/,/) # => ["a", "b", "c"]
+    nomes = nome.split(/,/) 
     puts 
    
     fim = nomes.length - 1
@@ -137,14 +129,7 @@ class Desafio2_controller
       puts
     end
   
-    puts
-      puts "Digite 'sair' para sair ou Tecle 'ENTER' para continuar"
-      cont = $stdin.gets.chomp
-      if cont == 'sair'
-        Display.new.sair
-      else
-        return Desafioapp.new.app_desafio2
-      end
+  
   end 
 
 end
