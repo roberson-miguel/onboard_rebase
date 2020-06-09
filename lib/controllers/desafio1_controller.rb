@@ -19,7 +19,7 @@ class Desafio1_controller
     puts
     puts
     sleep 1.9
-    return Display.new.app
+    return Desafioapp.new.app_desafio1
   end
 
   def self.sair 
@@ -56,7 +56,7 @@ class Desafio1_controller
     if cont == 'sair'
       return sair
     else
-      return Display.new.app
+      return Desafioapp.new.app_desafio1
     end
   end 
     
@@ -111,7 +111,7 @@ class Desafio1_controller
     if cont == 'sair'
       return sair
     else
-      return display
+      return Desafioapp.new.app_desafio1
     end
   end
     
@@ -151,7 +151,7 @@ class Desafio1_controller
     if cont == 'sair'
       return sair
     else
-      return display
+      return Desafioapp.new.app_desafio1
     end
   end 
 

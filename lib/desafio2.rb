@@ -7,9 +7,9 @@ class Desafio2
       elsif escolha == "2" then
         return Desafio2_controller.nomes_cidade
       elsif escolha == "sair" then
-        return sair
+        return Desafio2_controller.sair
       else
-        return opcao_invalida
+        return Desafio2_controller.opcao_invalida
       end
     end
   end
