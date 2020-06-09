@@ -61,4 +61,23 @@ class Display
       puts
       print "\t Digite sua escolha: " 
   end
+
+  def opcao_invalida
+    puts
+    puts
+    puts "\t \t Escolha uma das opções..."
+    puts
+    puts
+    sleep 1.9
+  end
+
+  def sair 
+    puts 
+    puts                            
+    puts "\t \t Saindo...Obrigado..."          
+    puts               
+    puts                                    
+    sleep 1.9
+  end
+
 end

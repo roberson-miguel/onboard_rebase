@@ -26,9 +26,11 @@ class Desafioapp
       elsif desafio == "3" then
         return app_desafio3
       elsif desafio == "sair" then
-        return self.sair
+        Display.new.sair
+        break
       else
-        return self.opcao_invalida
+        Display.new.opcao_invalida
+        return app
       end
     end
   end
@@ -45,26 +47,7 @@ class Desafioapp
     desafio2.menu
   end
 
-  def opcao_invalida
-    puts
-    puts
-    puts "\t \t Escolha uma das opções..."
-    puts
-    puts
-    sleep 1.9
-    return app
-  end
-
-  def sair 
-    puts 
-    puts                            
-    puts "\t \t Saindo...Obrigado..."          
-    puts               
-    puts                                    
-    sleep 1.9
-  end
-
 end
 
-desafio = Desafioapp.new.app
+Desafioapp.new.app
 
