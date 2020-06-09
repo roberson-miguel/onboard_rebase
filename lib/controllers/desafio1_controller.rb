@@ -12,25 +12,7 @@ class Desafio1_controller
     json = JSON.parse(resource.get, :symbolize_names => true)
   end
 
-  def self.opcao_invalida
-    puts
-    puts
-    puts "\t \t Escolha uma das opções..."
-    puts
-    puts
-    sleep 1.9
-    return Desafioapp.new.app_desafio1
-  end
 
-  def self.sair 
-    puts 
-    puts                            
-    puts "\t \t Saindo...Obrigado..."          
-    puts               
-    puts                                    
-    sleep 1.9
-  end
-  
   def self.nome_decada #menu 1
     print "\n \t Digite o nome para pesquisar: " 
     nome = $stdin.gets.chomp
@@ -54,7 +36,7 @@ class Desafio1_controller
     puts "Digite 'sair' para sair ou Tecle 'ENTER' para continuar"
     cont = $stdin.gets.chomp
     if cont == 'sair'
-      return sair
+      Display.new.sair
     else
       return Desafioapp.new.app_desafio1
     end
@@ -109,7 +91,7 @@ class Desafio1_controller
     puts "Digite 'sair' para sair ou Tecle 'ENTER' para continuar"
     cont = $stdin.gets.chomp
     if cont == 'sair'
-      return sair
+      Display.new.sair
     else
       return Desafioapp.new.app_desafio1
     end
@@ -149,7 +131,7 @@ class Desafio1_controller
     puts "Digite 'sair' para sair ou Tecle 'ENTER' para continuar"
     cont = $stdin.gets.chomp
     if cont == 'sair'
-      return sair
+      Display.new.sair
     else
       return Desafioapp.new.app_desafio1
     end

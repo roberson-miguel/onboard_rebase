@@ -7,26 +7,6 @@ class Desafio2_controller
   end
 
 
-  def self.opcao_invalida
-    puts
-    puts
-    puts "\t \t Escolha uma das opções..."
-    puts
-    puts
-    sleep 1.9
-    return Desafioapp.new.app_desafio2
-  end
-
-  def self.sair 
-    puts 
-    puts                            
-    puts "\t \t Saindo...Obrigado..."          
-    puts               
-    puts                                    
-    sleep 1.9
-  end
-
-
   def self.todos_sexos_local #menu 1
  
     system("clear")
@@ -99,7 +79,7 @@ class Desafio2_controller
       puts "Digite 'sair' para sair ou Tecle 'ENTER' para continuar"
       cont = $stdin.gets.chomp
       if cont == 'sair'
-        return sair
+        Display.new.sair
       else
         return Desafioapp.new.app_desafio2
       end
@@ -161,11 +141,10 @@ class Desafio2_controller
       puts "Digite 'sair' para sair ou Tecle 'ENTER' para continuar"
       cont = $stdin.gets.chomp
       if cont == 'sair'
-        return sair
+        Display.new.sair
       else
         return Desafioapp.new.app_desafio2
       end
-  
   end 
 
 end
